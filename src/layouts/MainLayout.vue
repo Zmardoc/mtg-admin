@@ -29,7 +29,7 @@
 import { ref } from 'vue'
 import InputSearch from 'src/components/InputSearch.vue'
 
-const leftDrawerOpen = ref(true)
+const leftDrawerOpen = ref(false)
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value

@@ -3,10 +3,10 @@
     dark
     dense
     standout
-    label="Type for card"
+    label="Type for a card"
     v-model="cardSearch"
     input-class="text-right"
-    debounce="300"
+    debounce="500"
     class="q-ml-md"
   >
     <template #append>

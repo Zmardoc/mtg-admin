@@ -1,9 +1,9 @@
-import { Ref } from 'vue'
+import { WritableComputedRef } from 'vue'
 
 const cardQueryKeys = {
   all: ['wizard'] as const,
-  searchWizards: (cardSearch: Ref<string>) =>
-    [...cardQueryKeys.all, cardSearch] as const,
+  searchWizards: (cardSearch: WritableComputedRef<string>) =>
+    [...cardQueryKeys.all, 'search', cardSearch] as const,
 }
 
 export { cardQueryKeys }
