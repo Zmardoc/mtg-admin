@@ -4,27 +4,25 @@
     dense
     standout
     label="Type for card"
-    v-model="search"
+    v-model="cardSearch"
     input-class="text-right"
+    debounce="300"
     class="q-ml-md"
   >
     <template #append>
-      <q-icon v-if="!search" name="search" />
+      <q-icon v-if="!cardSearch" name="search" />
       <q-icon v-else name="clear" class="cursor-pointer" @click="resetSearch" />
     </template>
   </q-input>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { debounce } from 'quasar'
+import useWizardSearchQuery from 'src/queries/useWizardSearchQuery'
 
-//const emits = defineEmits
-
-const search = ref('')
+const { cardSearch } = useWizardSearchQuery()
 
 function resetSearch() {
-  search.value = ''
+  cardSearch.value = ''
 }
 </script>
 
