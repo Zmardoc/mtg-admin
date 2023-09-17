@@ -25,7 +25,10 @@ function useScryfallSearchQuery() {
 
   const { data, isFetching } = useQuery(
     cardScryfallQueryKeys.search(cardSearch),
-    () => searchCards(cardSearch.value)
+    () => searchCards(cardSearch.value),
+    {
+      retry: false,
+    }
   )
 
   const scryfallCards = computed(() => data.value ?? [])
