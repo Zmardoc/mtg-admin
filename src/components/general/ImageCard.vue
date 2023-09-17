@@ -2,17 +2,17 @@
   <div class="q-pa-xs">
     <q-img :src="props.src" spinner-color="white" fit="fill" class="card-image">
       <template #error>
-        <div class="absolute-full flex flex-center bg-negative text-white">
-          {{ cardName }}
-        </div>
+        <empty-card :card-name="props.cardName" />
       </template>
     </q-img>
   </div>
 </template>
 
 <script setup lang="ts">
+import EmptyCard from './EmptyCard.vue'
+
 type Props = {
-  src: string
+  src?: string
   cardName: string
 }
 
@@ -21,6 +21,13 @@ const props = defineProps<Props>()
 
 <style scoped lang="scss">
 .card-image {
-  width: 265px;
+  width: $card-width;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.empty-card {
+  border: 10px solid black;
+  border-radius: 12px;
 }
 </style>

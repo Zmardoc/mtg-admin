@@ -1,12 +1,14 @@
 <template>
-  <div class="flex q-pa-xs">
+  <div class="flex flex-center">
     <template v-if="!isFetching">
-      <ImageCard
-        v-for="card in cardsWithImage"
-        :key="card.id"
-        :src="card.src"
-        :card-name="card.name"
-      />
+      <div class="card-dashboard flex q-py-xs">
+        <ImageCard
+          v-for="card in cardsWithImage"
+          :key="card.id"
+          :src="card.src"
+          :card-name="card.name"
+        />
+      </div>
       <template v-if="cardsWithImage.length === 0">
         <h1 v-if="cardSearch">CAN'T FIND ANY CARD</h1>
         <h1 v-else>TYPE FOR A CARD</h1>
@@ -28,7 +30,14 @@ const cardsWithImage = computed(() => {
   return scryfallCards.value.map((card) => ({
     id: card.id,
     name: card.name,
-    src: card.image_uris.normal,
+    src: card.image_uris?.normal ?? 'none',
   }))
 })
 </script>
+
+<style scoped lang="scss">
+$container-padding: 8px;
+.card-dashboard {
+  width: ($card-width + $container-padding) * 6;
+}
+</style>
