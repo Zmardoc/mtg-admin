@@ -16,7 +16,6 @@
     "@quasar/extras": "^1.16.4",
     "@tanstack/vue-query": "^4.35.3",
     "axios": "^1.2.1",
-    "loadash": "^1.0.0",
     "pinia": "^2.1.6",
     "quasar": "^2.12.7",
     "vue": "^3.0.0",
@@ -24,7 +23,6 @@
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.6.2",
-    "@types/lodash": "^4.14.198",
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",

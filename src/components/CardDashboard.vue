@@ -1,10 +1,10 @@
 <template>
-  <div class="flex pa-2">
+  <div class="flex q-pa-xs">
     <template v-if="!isFetching">
       <ImageCard
         v-for="card in cardsWithImage"
         :key="card.id"
-        :src="card.imageUrl"
+        :src="card.src"
         :card-name="card.name"
       />
       <template v-if="cardsWithImage.length === 0">
@@ -18,15 +18,17 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { uniqWith } from 'lodash'
-import useWizardSearchQuery from 'src/queries/useWizardSearchQuery'
+import useScryfallSearchQuery from 'src/queries/useScryfallSearchQuery'
 import ImageCard from 'src/components/general/ImageCard.vue'
 
-const { wizardCards, isFetching, cardSearch } = useWizardSearchQuery()
+const { scryfallCards, isFetching, cardSearch } = useScryfallSearchQuery()
 
 //The image url for a card. Only exists if the card has a multiverse id.
 const cardsWithImage = computed(() => {
-  const withImages = wizardCards.value.filter((card) => card.multiverseid)
-  return uniqWith(withImages, (arrVal, othVal) => arrVal.name === othVal.name)
+  return scryfallCards.value.map((card) => ({
+    id: card.id,
+    name: card.name,
+    src: card.image_uris.normal,
+  }))
 })
 </script>

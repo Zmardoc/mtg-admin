@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import useWizardSearchQuery from 'src/queries/useWizardSearchQuery'
+import useScryfallSearchQuery from 'src/queries/useScryfallSearchQuery'
 
-const { cardSearch } = useWizardSearchQuery()
+const { cardSearch } = useScryfallSearchQuery()
 
 function resetSearch() {
   cardSearch.value = ''
@@ -31,4 +31,3 @@ function resetSearch() {
   width: 250px;
 }
 </style>
-```
