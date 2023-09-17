@@ -2,7 +2,10 @@
   <div class="q-pa-xs">
     <q-img :src="props.src" spinner-color="white" fit="fill" class="card-image">
       <template #error>
-        <empty-card :card-name="props.cardName" />
+        <empty-card
+          :card-name="props.cardName"
+          :oracle-text="props.oracleText"
+        />
       </template>
     </q-img>
   </div>
@@ -14,6 +17,7 @@ import EmptyCard from './EmptyCard.vue'
 type Props = {
   src?: string
   cardName: string
+  oracleText: string
 }
 
 const props = defineProps<Props>()

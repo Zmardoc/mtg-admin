@@ -7,6 +7,7 @@
           :key="card.id"
           :src="card.src"
           :card-name="card.name"
+          :oracle-text="card.oracleText"
         />
       </div>
       <template v-if="cardsWithImage.length === 0">
@@ -31,6 +32,8 @@ const cardsWithImage = computed(() => {
     id: card.id,
     name: card.name,
     src: card.image_uris?.normal ?? 'none', //card_faces[0].image_uris?.normal ?? 'none',
+    oracleText:
+      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis condimentum augue id magna semper rutrum. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
   }))
 })
 </script>
