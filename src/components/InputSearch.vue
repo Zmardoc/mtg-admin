@@ -3,15 +3,21 @@
     dark
     dense
     standout
-    label="Type for a card"
+    placeholder="Type for a card"
     v-model="cardSearch"
     input-class="text-right"
     debounce="500"
     class="q-ml-md"
   >
     <template #append>
-      <q-icon v-if="!cardSearch" name="search" />
-      <q-icon v-else name="clear" class="cursor-pointer" @click="resetSearch" />
+      <q-icon v-if="!cardSearch" name="search" dark />
+      <q-icon
+        v-else
+        name="clear"
+        class="cursor-pointer"
+        dark
+        @click="resetSearch"
+      />
     </template>
   </q-input>
 </template>

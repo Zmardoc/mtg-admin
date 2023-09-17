@@ -14,6 +14,7 @@ type SryfallCard = {
   mtgo_foil_id?: number
   tcgplayer_id: number
   cardmarket_id: number
+  card_faces?: CardFace[]
   name: string
   lang: string
   released_at: string
@@ -77,6 +78,22 @@ type SryfallCard = {
   power?: string
   toughness?: string
   frame_effects?: string[]
+}
+
+type CardFace = {
+  object: string
+  name: string
+  mana_cost: string
+  type_line: string
+  oracle_text: string
+  colors: string[]
+  power: string
+  toughness: string
+  flavor_text: string
+  artist: string
+  artist_id: string
+  illustration_id: string
+  image_uris: ImageUris
 }
 
 type ImageUris = {
@@ -149,4 +166,4 @@ type Preview = {
   previewed_at: string
 }
 
-export type { ScryfallCardSearchResponse }
+export type { ScryfallCardSearchResponse, ImageUris, CardFace }

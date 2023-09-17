@@ -5,9 +5,8 @@
         <ImageCard
           v-for="card in cardsWithImage"
           :key="card.id"
-          :src="card.src"
-          :card-name="card.name"
-          :oracle-text="card.oracleText"
+          :card="card"
+          class="q-ma-xs"
         />
       </div>
       <template v-if="cardsWithImage.length === 0">
@@ -22,19 +21,21 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import useScryfallSearchQuery from 'src/queries/useScryfallSearchQuery'
-import ImageCard from 'src/components/general/ImageCard.vue'
+import ImageCard, { type Card } from 'src/components/general/ImageCard.vue'
 
 const { scryfallCards, isFetching, cardSearch } = useScryfallSearchQuery()
 
-//The image url for a card. Only exists if the card has a multiverse id.
 const cardsWithImage = computed(() => {
-  return scryfallCards.value.map((card) => ({
-    id: card.id,
-    name: card.name,
-    src: card.image_uris?.normal ?? 'none', //card_faces[0].image_uris?.normal ?? 'none',
-    oracleText:
-      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis condimentum augue id magna semper rutrum. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-  }))
+  return scryfallCards.value.map<Card>((card) => {
+    const { id, name, image_uris, card_faces, oracle_text } = card
+    return {
+      id,
+      name,
+      image_uris,
+      card_faces,
+      oracle_text,
+    }
+  })
 })
 </script>
 
