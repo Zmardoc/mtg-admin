@@ -30,7 +30,7 @@ const cardsWithImage = computed(() => {
   return scryfallCards.value.map((card) => ({
     id: card.id,
     name: card.name,
-    src: card.image_uris?.normal ?? 'none',
+    src: card.image_uris?.normal ?? 'none', //card_faces[0].image_uris?.normal ?? 'none',
   }))
 })
 </script>

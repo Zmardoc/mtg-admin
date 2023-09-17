@@ -25,9 +25,4 @@ const props = defineProps<Props>()
   height: 100%;
   border-radius: 12px;
 }
-
-.empty-card {
-  border: 10px solid black;
-  border-radius: 12px;
-}
 </style>
