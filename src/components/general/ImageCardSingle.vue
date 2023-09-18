@@ -1,10 +1,12 @@
 <template>
-  <q-img :src="src" spinner-color="white" fit="fill" class="card-image">
-    <template #error>
-      <empty-card :card-name="props.name" :oracle-text="props.oracleText" />
-    </template>
-    <slot />
-  </q-img>
+  <div @click="emit('click')">
+    <q-img :src="src" spinner-color="white" fit="fill" class="card-image">
+      <template #error>
+        <empty-card :card-name="props.name" :oracle-text="props.oracleText" />
+      </template>
+      <slot />
+    </q-img>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -17,6 +19,10 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'click'): void
+}>()
 </script>
 
 <style scoped lang="scss">
