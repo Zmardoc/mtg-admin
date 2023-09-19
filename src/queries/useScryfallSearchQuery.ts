@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import cardScryfallQueryKeys from './cardScryfallQueryKeys'
 import { useQuery } from '@tanstack/vue-query'
-import { useSearchBarStore } from 'src/stores/searchBarStore'
+import { useSearchBarStore } from '@/stores/searchBarStore'
 import type { ScryfallCardSearchResponse } from './sryfallSearchTypes'
-import sryfallApi from 'src/api/sryfallApi'
+import sryfallApi from '@/api/sryfallApi'
 
 function useScryfallSearchQuery() {
   const searchBarStore = useSearchBarStore()

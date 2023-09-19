@@ -26,10 +26,8 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { ImageUris, CardFace } from 'src/queries/sryfallSearchTypes'
-import ImageCardSingle from './ImageCardSingle.vue'
+<script lang="ts">
+import type { ImageUris, CardFace } from '@/queries/sryfallSearchTypes'
 
 export type Card = {
   id: string
@@ -38,6 +36,11 @@ export type Card = {
   card_faces?: CardFace[]
   oracle_text: string
 }
+</script>
+
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import ImageCardSingle from './ImageCardSingle.vue'
 
 type Props = {
   card: Card

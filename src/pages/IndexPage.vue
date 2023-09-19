@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import CardDashboard from 'src/components/CardDashboard.vue'
+import CardDashboard from '@/components/CardDashboard.vue'
 </script>

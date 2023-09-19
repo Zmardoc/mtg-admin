@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import InputSearch from 'src/components/InputSearch.vue'
+import InputSearch from '@/components/InputSearch.vue'
 
 const leftDrawerOpen = ref(false)
 

@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import useScryfallSearchQuery from 'src/queries/useScryfallSearchQuery'
+import useScryfallSearchQuery from '@/queries/useScryfallSearchQuery'
 
 const { cardSearch } = useScryfallSearchQuery()
 

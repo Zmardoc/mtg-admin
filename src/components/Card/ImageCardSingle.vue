@@ -1,16 +1,22 @@
 <template>
   <div @click="emit('click')">
-    <q-img :src="src" spinner-color="white" fit="fill" class="card-image">
+    <q-img
+      :src="src"
+      spinner-color="white"
+      fit="fill"
+      class="image-card-single"
+    >
       <template #error>
         <empty-card :card-name="props.name" :oracle-text="props.oracleText" />
       </template>
-      <slot />
+      <card-menu class="image-card-single__menu" :card-name="props.name" />
     </q-img>
   </div>
 </template>
 
 <script setup lang="ts">
 import EmptyCard from './EmptyCard.vue'
+import CardMenu from './CardMenu.vue'
 
 type Props = {
   name: string
@@ -26,9 +32,15 @@ const emit = defineEmits<{
 </script>
 
 <style scoped lang="scss">
-.card-image {
+.image-card-single {
   width: $card-width;
   height: 100%;
   border-radius: 12px;
+
+  &:hover {
+    .image-card-single__menu {
+      height: 100%;
+    }
+  }
 }
 </style>

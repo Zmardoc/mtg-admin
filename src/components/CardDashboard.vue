@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import useScryfallSearchQuery from 'src/queries/useScryfallSearchQuery'
-import ImageCard, { type Card } from 'src/components/general/ImageCard.vue'
+import useScryfallSearchQuery from '@/queries/useScryfallSearchQuery'
+import ImageCard, { type Card } from '@/components/card/ImageCard.vue'
 
 const { scryfallCards, isFetching, cardSearch } = useScryfallSearchQuery()
 
