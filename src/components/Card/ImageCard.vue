@@ -1,10 +1,16 @@
 <template>
   <div class="image-card-scene">
+    <card-menu
+      @add="addToCollection(props.card.name)"
+      @remove="removeFromCollection(props.card.name)"
+      @flip="flipCard"
+      :showFlip="hasDualFace"
+      class="image-card-scene__menu absolute"
+    />
     <div
       class="image-card"
       :class="{
         'image-card--is-flipped': flipped,
-        'image-card--dual': hasDualFace,
       }"
     >
       <image-card-single
@@ -12,7 +18,6 @@
         :src="frontCard.src"
         :oracle-text="frontCard.oracleText"
         class="image-card__face image-card__face--front"
-        @click="flipCard"
       />
       <image-card-single
         v-if="hasDualFace"
@@ -20,7 +25,6 @@
         :src="backCard.src"
         :oracle-text="backCard.oracleText"
         class="image-card__face image-card__face--back"
-        @click="flipCard"
       />
     </div>
   </div>
@@ -41,10 +45,13 @@ export type Card = {
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ImageCardSingle from './ImageCardSingle.vue'
+import useCardActions from '@/composables/useCardActions'
+import CardMenu from './CardMenu.vue'
 
 type Props = {
   card: Card
 }
+const { addToCollection, removeFromCollection } = useCardActions()
 
 const props = defineProps<Props>()
 const flipped = ref(false)
@@ -94,6 +101,21 @@ const backCard = computed(() => getFaceOfDualCard(false))
   /*TODO better sizing */
   width: 245px;
   height: 341.391px;
+
+  &__menu {
+    position: absolute;
+    top: 13%;
+    left: 75%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    .image-card-scene__menu {
+      opacity: 1;
+    }
+  }
 }
 
 .image-card {
@@ -105,10 +127,6 @@ const backCard = computed(() => getFaceOfDualCard(false))
 
   &--is-flipped {
     transform: rotateY(180deg);
-  }
-
-  &--dual {
-    cursor: pointer;
   }
 
   &__face {

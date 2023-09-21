@@ -42,6 +42,6 @@ const cardsWithImage = computed(() => {
 <style scoped lang="scss">
 $container-padding: 8px;
 .card-dashboard {
-  width: ($card-width + $container-padding) * 6;
+  max-width: ($card-width + $container-padding) * 6;
 }
 </style>

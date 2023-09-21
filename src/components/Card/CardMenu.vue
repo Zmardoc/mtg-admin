@@ -1,38 +1,34 @@
 <template>
-  <div class="card-menu">
-    <q-btn-group spread>
-      <q-btn color="primary" icon="save_alt" @click="addToCollection" />
-      <q-btn color="secondary" icon="delete" @click="removeFromCollection" />
-    </q-btn-group>
+  <div class="card-menu flex column">
+    <card-button color="green" icon="add" @click="emit('add')" />
+    <card-button color="red" icon="remove" @click="emit('remove')" />
+    <card-button
+      v-if="props.showFlip"
+      color="black"
+      icon="auto_stories"
+      @click="emit('flip')"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import CardButton from '@/components/general/CardButton.vue'
+
 type Props = {
-  cardName: string
+  showFlip?: boolean
 }
 
 const props = defineProps<Props>()
 
-// TODO
-function addToCollection() {
-  console.log('Add to collection', props.cardName)
-}
-
-function removeFromCollection() {
-  console.log('Remove from collection', props.cardName)
-}
+const emit = defineEmits<{
+  (e: 'add'): void
+  (e: 'remove'): void
+  (e: 'flip'): void
+}>()
 </script>
 
 <style scoped lang="scss">
 .card-menu {
-  height: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  transition: 0.2s;
-  padding: 0;
+  gap: 4px;
 }
 </style>
