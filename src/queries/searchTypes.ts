@@ -1,10 +1,3 @@
-type ScryfallCardSearchResponse = {
-  object: string
-  total_cards: number
-  has_more: boolean
-  data: SryfallCard[]
-}
-
 type SryfallCard = {
   object: string
   id: string
@@ -166,4 +159,4 @@ type Preview = {
   previewed_at: string
 }
 
-export type { ScryfallCardSearchResponse, ImageUris, CardFace }
+export type { ImageUris, CardFace, SryfallCard }

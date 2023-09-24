@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import type { ImageUris, CardFace } from '@/queries/sryfallSearchTypes'
+import type { ImageUris, CardFace } from '@/queries/searchTypes'
 
 export type Card = {
   id: string
@@ -142,3 +142,4 @@ const backCard = computed(() => getFaceOfDualCard(false))
   }
 }
 </style>
+@/queries/searchTypes

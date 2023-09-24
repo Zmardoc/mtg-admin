@@ -1,21 +1,22 @@
 import { computed } from 'vue'
-import cardScryfallQueryKeys from './cardScryfallQueryKeys'
+import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
 import { useSearchBarStore } from '@/stores/searchBarStore'
-import type { ScryfallCardSearchResponse } from './sryfallSearchTypes'
-import sryfallApi from '@/api/sryfallApi'
+import type { SryfallCard } from './searchTypes'
+import mtgApi from '@/api/mtgApi'
 
-function useScryfallSearchQuery() {
+function useSearchQuery() {
   const searchBarStore = useSearchBarStore()
 
   async function searchCards(cardTitle: string) {
     if (cardTitle === '') return []
 
     //TODO osetrit 400,500
-    const response = await sryfallApi.get<ScryfallCardSearchResponse>(
+    const response = await mtgApi.get<SryfallCard[]>(
       `/cards/search?q=${cardTitle}`
     )
-    return response.data.data ?? []
+    console.log(response.status)
+    return response.data ?? []
   }
 
   const cardSearch = computed({
@@ -24,20 +25,20 @@ function useScryfallSearchQuery() {
   })
 
   const { data, isFetching } = useQuery(
-    cardScryfallQueryKeys.search(cardSearch),
+    queryKeys.search(cardSearch),
     () => searchCards(cardSearch.value),
     {
       retry: false,
     }
   )
 
-  const scryfallCards = computed(() => data.value ?? [])
+  const cards = computed(() => data.value ?? [])
 
   return {
     cardSearch,
-    scryfallCards,
+    cards,
     isFetching,
   }
 }
 
-export default useScryfallSearchQuery
+export default useSearchQuery

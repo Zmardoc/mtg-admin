@@ -20,13 +20,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import useScryfallSearchQuery from '@/queries/useScryfallSearchQuery'
+import useSearchQuery from '@/queries/useSearchQuery'
 import ImageCard, { type Card } from '@/components/card/ImageCard.vue'
 
-const { scryfallCards, isFetching, cardSearch } = useScryfallSearchQuery()
+const { cards, isFetching, cardSearch } = useSearchQuery()
 
 const cardsWithImage = computed(() => {
-  return scryfallCards.value.map<Card>((card) => {
+  return cards.value.map<Card>((card) => {
     const { id, name, image_uris, card_faces, oracle_text } = card
     return {
       id,
@@ -45,3 +45,4 @@ $container-padding: 8px;
   max-width: ($card-width + $container-padding) * 6;
 }
 </style>
+@/queries/useSearchQuery
