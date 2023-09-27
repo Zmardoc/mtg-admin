@@ -8,10 +8,13 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+// TODO lepsi barvy
 </script>
 
 <style scoped lang="scss">
 .card-button {
   opacity: 0.9;
+  color: black;
+  background-color: #ffffff20;
 }
 </style>

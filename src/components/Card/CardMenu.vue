@@ -1,7 +1,7 @@
 <template>
   <div class="card-menu flex column">
-    <card-button color="green" icon="add" @click="emit('add')" />
-    <card-button color="red" icon="remove" @click="emit('remove')" />
+    <card-button icon="add" @click="emit('add')" />
+    <card-button icon="remove" @click="emit('remove')" />
     <card-button
       v-if="props.showFlip"
       color="black"
