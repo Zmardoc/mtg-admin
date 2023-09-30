@@ -2,34 +2,35 @@ import mtgApi from '@/api/mtgApi'
 import useSearchQuery from '@/queries/useSearchQuery'
 import { useMutation } from '@tanstack/vue-query'
 
+type CollectionCard = {
+  name: string
+  inCollection: number
+}
+
 function useCardActionsQuery() {
   const { offlineUpdateSearch, searchData } = useSearchQuery()
 
   async function postAddCard(name: string) {
-    const response = await mtgApi.post<boolean>('/card/insert', { name })
+    const response = await mtgApi.post<CollectionCard>('/card', { name })
     return response.data
   }
 
   async function postRemoveCard(name: string) {
-    const response = await mtgApi.delete<boolean>(`/card?name=${name}`)
+    const response = await mtgApi.delete<CollectionCard>(`/card?name=${name}`)
     return response.data
   }
 
   async function postAddOrRemoveCard(name: string, add: boolean) {
-    let response: boolean // TODO zmenit na number
+    const collectionCard = add
+      ? await postAddCard(name)
+      : await postRemoveCard(name)
 
-    if (add) {
-      response = await postAddCard(name)
-    } else {
-      response = await postRemoveCard(name)
-    }
-
-    if (response) {
+    if (collectionCard) {
       const updatedSearchData = searchData.value?.map((card) => {
         if (card.cardFaces[0].name === name) {
           return {
             ...card,
-            inCollection: add ? card.inCollection + 1 : card.inCollection - 1, // TODO brat z response
+            inCollection: collectionCard.inCollection,
           }
         }
         return card
@@ -46,9 +47,11 @@ function useCardActionsQuery() {
   function addToCollection(name: string) {
     mutate({ name, add: true })
   }
+
   function removeFromCollection(name: string) {
     mutate({ name, add: false })
   }
+
   return {
     addToCollection,
     removeFromCollection,

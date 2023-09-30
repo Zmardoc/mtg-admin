@@ -70,7 +70,6 @@ const backCard = computed(() => props.card.cardFaces[1])
     left: 75%;
     z-index: 1;
     opacity: 0;
-    transition: opacity 0.2s;
   }
 
   &:hover {
@@ -86,10 +85,10 @@ const backCard = computed(() => props.card.cardFaces[1])
   transition: transform 0.5s;
   transform-style: preserve-3d;
   position: relative;
+  transition: opacity 0.7s;
 
   &--not-in-collection {
     opacity: 0.4;
-    transition: opacity 0.2s;
   }
 
   &:hover {
