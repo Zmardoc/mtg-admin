@@ -34,7 +34,7 @@ function useSearchQuery() {
     set: (value) => searchBarStore.setSearchText(value),
   })
 
-  const cardSearchQueryKey = queryKeys.search(cardSearch) // TODO mozna chyba
+  const cardSearchQueryKey = queryKeys.search(cardSearch)
 
   const { data, isFetching } = useQuery(
     cardSearchQueryKey,
@@ -44,17 +44,21 @@ function useSearchQuery() {
     }
   )
 
-  function invalidateSearch() {
-    return queryClient.invalidateQueries(cardSearchQueryKey)
+  function offlineUpdateSearch(data: ApiCard[]) {
+    queryClient.setQueryData(cardSearchQueryKey, data)
   }
 
+  const searchData = computed(() =>
+    queryClient.getQueryData<ApiCard[]>(cardSearchQueryKey)
+  )
   const cards = computed(() => data.value ?? [])
 
   return {
     cardSearch,
     cards,
+    searchData,
     isFetching,
-    invalidateSearch,
+    offlineUpdateSearch,
   }
 }
 

@@ -3,7 +3,7 @@ import useSearchQuery from '@/queries/useSearchQuery'
 import { useMutation } from '@tanstack/vue-query'
 
 function useCardActionsQuery() {
-  const { invalidateSearch } = useSearchQuery()
+  const { offlineUpdateSearch, searchData } = useSearchQuery()
 
   async function postAddCard(name: string) {
     const response = await mtgApi.post<boolean>('/card/insert', { name })
@@ -16,7 +16,7 @@ function useCardActionsQuery() {
   }
 
   async function postAddOrRemoveCard(name: string, add: boolean) {
-    let response: boolean
+    let response: boolean // TODO zmenit na number
 
     if (add) {
       response = await postAddCard(name)
@@ -25,7 +25,16 @@ function useCardActionsQuery() {
     }
 
     if (response) {
-      invalidateSearch()
+      const updatedSearchData = searchData.value?.map((card) => {
+        if (card.cardFaces[0].name === name) {
+          return {
+            ...card,
+            inCollection: add ? card.inCollection + 1 : card.inCollection - 1, // TODO brat z response
+          }
+        }
+        return card
+      })
+      updatedSearchData && offlineUpdateSearch(updatedSearchData)
     }
   }
 
