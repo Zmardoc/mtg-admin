@@ -3,6 +3,7 @@ import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
 import { useSearchBarStore } from '@/stores/searchBarStore'
 import mtgApi from '@/api/mtgApi'
+import queryClient from '@/config/query'
 
 type CardFace = {
   name: string
@@ -33,13 +34,19 @@ function useSearchQuery() {
     set: (value) => searchBarStore.setSearchText(value),
   })
 
+  const cardSearchQueryKey = queryKeys.search(cardSearch) // TODO mozna chyba
+
   const { data, isFetching } = useQuery(
-    queryKeys.search(cardSearch),
+    cardSearchQueryKey,
     () => searchCards(cardSearch.value),
     {
       retry: false,
     }
   )
+
+  function invalidateSearch() {
+    return queryClient.invalidateQueries(cardSearchQueryKey)
+  }
 
   const cards = computed(() => data.value ?? [])
 
@@ -47,6 +54,7 @@ function useSearchQuery() {
     cardSearch,
     cards,
     isFetching,
+    invalidateSearch,
   }
 }
 

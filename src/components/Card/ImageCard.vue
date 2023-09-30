@@ -34,14 +34,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ImageCardSingle from './ImageCardSingle.vue'
-import useCardActions from '@/composables/useCardActions'
 import CardMenu from './CardMenu.vue'
 import type { ApiCard } from '@/queries/useSearchQuery'
+import useCardActionsQuery from './useCardActionsQuery'
 
 type Props = {
   card: ApiCard
 }
-const { addToCollection, removeFromCollection } = useCardActions()
+const { addToCollection, removeFromCollection } = useCardActionsQuery()
 
 const props = defineProps<Props>()
 const flipped = ref(false)
@@ -113,3 +113,4 @@ const backCard = computed(() => props.card.cardFaces[1])
   }
 }
 </style>
+@/components/card/useCardActions
