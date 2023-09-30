@@ -11,6 +11,7 @@
       class="image-card"
       :class="{
         'image-card--is-flipped': flipped,
+        'image-card--not-in-collection': props.card.inCollection === 0,
       }"
     >
       <image-card-single
@@ -86,6 +87,15 @@ const backCard = computed(() => props.card.cardFaces[1])
   transform-style: preserve-3d;
   position: relative;
 
+  &--not-in-collection {
+    opacity: 0.4;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
   &--is-flipped {
     transform: rotateY(180deg);
   }
@@ -103,4 +113,3 @@ const backCard = computed(() => props.card.cardFaces[1])
   }
 }
 </style>
-@/queries/searchTypes

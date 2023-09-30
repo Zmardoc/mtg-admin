@@ -13,8 +13,7 @@ const props = defineProps<Props>()
 
 <style scoped lang="scss">
 .card-button {
-  opacity: 0.9;
   color: black;
-  background-color: #ffffff20;
+  background-color: #ffffff60;
 }
 </style>
