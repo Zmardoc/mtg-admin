@@ -1,17 +1,22 @@
 <template>
-  <div class="image-card-scene">
+  <div
+    class="image-card-scene"
+    :class="{
+      'image-card-scene--not-in-collection': props.card.inCollection === 0,
+    }"
+  >
     <card-menu
       @add="addToCollection(frontCard.name)"
       @remove="removeFromCollection(frontCard.name)"
       @flip="flipCard"
       :showFlip="hasDualFace"
+      :inCollection="props.card.inCollection"
       class="image-card-scene__menu absolute"
     />
     <div
       class="image-card"
       :class="{
         'image-card--is-flipped': flipped,
-        'image-card--not-in-collection': props.card.inCollection === 0,
       }"
     >
       <image-card-single
@@ -64,6 +69,10 @@ const backCard = computed(() => props.card.cardFaces[1])
   width: 245px;
   height: 341.391px;
 
+  &--not-in-collection {
+    opacity: 0.4;
+  }
+
   &__menu {
     position: absolute;
     top: 13%;
@@ -73,6 +82,8 @@ const backCard = computed(() => props.card.cardFaces[1])
   }
 
   &:hover {
+    opacity: 1;
+
     .image-card-scene__menu {
       opacity: 1;
     }
@@ -82,18 +93,9 @@ const backCard = computed(() => props.card.cardFaces[1])
 .image-card {
   width: 100%;
   height: 100%;
-  transition: transform 0.5s;
+  transition: transform 0.5s; //, opacity 0.7s
   transform-style: preserve-3d;
   position: relative;
-  transition: opacity 0.7s;
-
-  &--not-in-collection {
-    opacity: 0.4;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
 
   &--is-flipped {
     transform: rotateY(180deg);
@@ -112,4 +114,3 @@ const backCard = computed(() => props.card.cardFaces[1])
   }
 }
 </style>
-@/components/card/useCardActions
