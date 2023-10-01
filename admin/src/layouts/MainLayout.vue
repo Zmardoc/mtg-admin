@@ -6,7 +6,7 @@
 
         <q-toolbar-title class="flex items-center">
           <img src="~assets/logo.png" height="38" />
-          <div class="mtg-font-bold q-ml-md">MTG Collector</div>
+          <div class="mtg-font-bold q-ml-md gt-xs">MTG Collector</div>
         </q-toolbar-title>
 
         <input-search />

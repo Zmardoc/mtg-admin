@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-center">
     <template v-if="!isFetching">
-      <div class="card-dashboard flex q-py-xs">
+      <div class="card-dashboard flex justify-center q-py-xs">
         <ImageCard
           v-for="card in cards"
           :key="card.id"
