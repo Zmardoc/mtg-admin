@@ -1,14 +1,14 @@
 <template>
   <div class="card-menu flex column">
-    <card-button icon="add" @click="emit('add')" />
+    <card-button icon="add" color="black" @click="emit('add')" />
     <card-button
       v-if="inCollection > 0"
       icon="remove"
+      color="black"
       @click="emit('remove')"
     />
     <card-button
       v-if="props.showFlip"
-      color="black"
       icon="auto_stories"
       @click="emit('flip')"
     />
