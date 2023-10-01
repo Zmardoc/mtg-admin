@@ -5,9 +5,8 @@
     standout
     placeholder="Type for a card"
     v-model="cardSearch"
-    input-class="text-right"
+    :input-class="props.inputClass"
     debounce="500"
-    class="q-ml-md"
   >
     <template #append>
       <q-icon v-if="!cardSearch" name="search" dark />
@@ -25,16 +24,15 @@
 <script setup lang="ts">
 import useSearchQuery from '@/queries/useSearchQuery'
 
+type Props = {
+  inputClass?: string
+}
+
+const props = defineProps<Props>()
+
 const { cardSearch } = useSearchQuery()
 
 function resetSearch() {
   cardSearch.value = ''
 }
 </script>
-
-<style scoped lang="scss">
-.input-search {
-  width: 250px;
-}
-</style>
-@/queries/useSearchQuery

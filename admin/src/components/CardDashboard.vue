@@ -1,7 +1,10 @@
 <template>
-  <div class="flex flex-center">
+  <div class="flex flex-center full-width">
     <template v-if="!isFetching">
-      <div class="card-dashboard flex justify-center q-py-xs">
+      <div
+        v-if="cards.length"
+        class="card-dashboard flex justify-center q-py-xs"
+      >
         <ImageCard
           v-for="card in cards"
           :key="card.id"
@@ -9,24 +12,24 @@
           class="q-ma-xs"
         />
       </div>
-      <template v-if="cards.length === 0">
-        <h1 v-if="cardSearch">CAN'T FIND ANY CARD</h1>
-        <h1 v-else>TYPE FOR A CARD</h1>
-      </template>
+      <dashboard-text v-else-if="cardSearch" text="CAN'T FIND ANY CARD" />
+      <dashboard-text v-else text="TYPE FOR A CARD" />
     </template>
-    <h1 v-else>LOADING...</h1>
+    <dashboard-text v-else text="LOADING..." />
   </div>
 </template>
 
 <script setup lang="ts">
 import useSearchQuery from '@/queries/useSearchQuery'
 import ImageCard from '@/components/card/ImageCard.vue'
+import DashboardText from '@/components/DashboardText.vue'
 
 const { cards, isFetching, cardSearch } = useSearchQuery()
 </script>
 
 <style scoped lang="scss">
 $container-padding: 8px;
+
 .card-dashboard {
   max-width: ($card-width + $container-padding) * 6;
 }

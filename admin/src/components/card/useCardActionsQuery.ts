@@ -1,4 +1,5 @@
 import mtgApi from '@/api/mtgApi'
+import useNotify from '@/composables/useNotify'
 import useSearchQuery from '@/queries/useSearchQuery'
 import { useMutation } from '@tanstack/vue-query'
 
@@ -9,6 +10,7 @@ type CollectionCard = {
 
 function useCardActionsQuery() {
   const { offlineUpdateSearch, searchData } = useSearchQuery()
+  const { notifySuccess } = useNotify()
 
   async function postAddCard(name: string) {
     const response = await mtgApi.post<CollectionCard>('/card', { name })
@@ -35,6 +37,10 @@ function useCardActionsQuery() {
         }
         return card
       })
+
+      notifySuccess(
+        `${name} was ${add ? 'added to' : 'removed from'} your collection`
+      )
       updatedSearchData && offlineUpdateSearch(updatedSearchData)
     }
   }
