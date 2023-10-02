@@ -13,7 +13,7 @@ const doc = {
     title: 'Cards API', // by default: 'REST API'
     description: 'A simple Express API', // by default: ''
   },
-  host: `localhost:${port}`,
+  host: `${process.env.API}:${port}`,
 }
 
 swaggerAutogen(outputFile, endpointsFiles, doc)

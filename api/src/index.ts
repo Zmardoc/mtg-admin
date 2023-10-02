@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: 'http://localhost:9000', // TODO change to env
+    origin: '*', // TODO change to env
   }),
 )
 
