@@ -1,4 +1,4 @@
-import mtgApi from '@/api/mtgApi'
+import { mtgDelete, mtgPost } from '@/api/mtgApi'
 import useNotify from '@/composables/useNotify'
 import useSearchQuery, { ApiCard } from '@/queries/useSearchQuery'
 import { useMutation } from '@tanstack/vue-query'
@@ -13,15 +13,15 @@ function useCardActionsQuery() {
   const { notifySuccess } = useNotify()
 
   async function postAddCard(name: string) {
-    const response = await mtgApi.post<CollectionCard>('/card', { name })
+    const response = await mtgPost<CollectionCard>('/card', { name })
     notifySuccess(`${name} was added to your collection`)
-    return response.data
+    return response
   }
 
   async function postRemoveCard(name: string) {
-    const response = await mtgApi.delete<CollectionCard>(`/card?name=${name}`)
+    const response = await mtgDelete<CollectionCard>(`/card?name=${name}`)
     notifySuccess(`${name} was removed from your collection`)
-    return response.data
+    return response
   }
 
   function getUpdatedSearch(newCard: CollectionCard, oldData?: ApiCard[]) {

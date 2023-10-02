@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
 import { useSearchBarStore } from '@/stores/searchBarStore'
-import mtgApi from '@/api/mtgApi'
+import { mtgGet } from '@/api/mtgApi'
 import queryClient from '@/config/query'
 
 type CardFace = {
@@ -23,10 +23,8 @@ function useSearchQuery() {
   async function searchCards(cardTitle: string) {
     if (cardTitle === '') return []
 
-    //TODO osetrit 400,500
-    const response = await mtgApi.get<ApiCard[]>(`/cards/search?q=${cardTitle}`)
-
-    return response.data ?? []
+    const response = await mtgGet<ApiCard[]>(`/cards/search?q=${cardTitle}`)
+    return response ?? []
   }
 
   const cardSearch = computed({
