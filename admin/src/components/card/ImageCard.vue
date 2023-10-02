@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="image-card-scene"
-    :class="{
-      'image-card-scene--not-in-collection': props.card.inCollection === 0,
-    }"
-  >
+  <div class="image-card-scene">
     <card-menu
       @add="addToCollection(frontCard.name)"
       @remove="removeFromCollection(frontCard.name)"
@@ -17,6 +12,7 @@
       class="image-card"
       :class="{
         'image-card--is-flipped': flipped,
+        'image-card--not-in-collection': props.card.inCollection === 0,
       }"
     >
       <image-card-single
@@ -33,6 +29,8 @@
         class="image-card__face image-card__face--back"
       />
     </div>
+
+    <div class="image-card-scene__hover gt-xs"></div>
   </div>
 </template>
 
@@ -68,10 +66,7 @@ const backCard = computed(() => props.card.cardFaces[1])
   /*TODO better sizing */
   width: 245px;
   height: 341.391px;
-
-  &--not-in-collection {
-    opacity: 0.4;
-  }
+  position: relative;
 
   &__menu {
     position: absolute;
@@ -82,10 +77,18 @@ const backCard = computed(() => props.card.cardFaces[1])
   }
 
   &:hover {
-    opacity: 1;
-
     .image-card-scene__menu {
       opacity: 1;
+    }
+
+    .image-card-scene__hover {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: inset 0 0 20px $primary;
+      border-radius: 12px;
     }
   }
 }
@@ -99,6 +102,10 @@ const backCard = computed(() => props.card.cardFaces[1])
 
   &--is-flipped {
     transform: rotateY(180deg);
+  }
+
+  &--not-in-collection {
+    opacity: 0.4;
   }
 
   &__face {
