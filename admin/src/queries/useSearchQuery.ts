@@ -59,4 +59,4 @@ function useSearchQuery() {
 }
 
 export default useSearchQuery
-export type { ApiCard }
+export type { ApiCard, CardFace }

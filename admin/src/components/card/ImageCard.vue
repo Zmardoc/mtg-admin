@@ -16,21 +16,19 @@
       }"
     >
       <image-card-single
-        :name="frontCard.name"
-        :src="frontCard.imageUrl ?? ''"
-        :oracle-text="frontCard.oracleText ?? ''"
+        :card-face="frontCard"
+        :in-collection="props.card.inCollection"
         class="image-card__face image-card__face--front"
       />
       <image-card-single
         v-if="hasDualFace"
-        :name="backCard.name"
-        :src="backCard.imageUrl ?? ''"
-        :oracle-text="backCard.oracleText ?? ''"
+        :card-face="backCard"
+        :in-collection="props.card.inCollection"
         class="image-card__face image-card__face--back"
       />
     </div>
 
-    <div class="image-card-scene__hover gt-xs"></div>
+    <div class="image-card-scene__hover" />
   </div>
 </template>
 
