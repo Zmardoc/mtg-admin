@@ -2,17 +2,14 @@
   <q-layout view="hHh lpR lFr">
     <q-header elevated class="bg-black text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-
-        <q-toolbar-title class="flex items-center">
-          <img src="~assets/logo.png" height="38" />
-          <div class="mtg-font-bold q-ml-md gt-xs">MTG Collector</div>
+        <q-btn round @click="toggleLeftDrawer">
+          <img src="~assets/logo.png" height="38" width="22" />
+        </q-btn>
+        <q-toolbar-title>
+          <div class="mtg-font-bold gt-xs">MTG Collector</div>
         </q-toolbar-title>
 
-        <input-search class="gt-xs" input-class="text-right" />
-      </q-toolbar>
-      <q-toolbar class="xs">
-        <input-search class="full-width" />
+        <input-search input-class="text-right" class="input-search" />
       </q-toolbar>
     </q-header>
 
@@ -36,3 +33,10 @@ function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<style lang="scss" scoped>
+.input-search {
+  width: 100%;
+  max-width: 375px;
+}
+</style>
