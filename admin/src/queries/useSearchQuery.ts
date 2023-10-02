@@ -44,21 +44,19 @@ function useSearchQuery() {
     }
   )
 
-  function offlineUpdateSearch(data: ApiCard[]) {
-    queryClient.setQueryData(cardSearchQueryKey, data)
+  function updateSearch(
+    updateFunction: (oldData: ApiCard[] | undefined) => ApiCard[] | undefined
+  ) {
+    queryClient.setQueryData(cardSearchQueryKey, updateFunction)
   }
 
-  const searchData = computed(() =>
-    queryClient.getQueryData<ApiCard[]>(cardSearchQueryKey)
-  )
   const cards = computed(() => data.value ?? [])
 
   return {
     cardSearch,
     cards,
-    searchData,
     isFetching,
-    offlineUpdateSearch,
+    updateSearch,
   }
 }
 
