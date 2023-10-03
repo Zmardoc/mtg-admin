@@ -8,24 +8,37 @@
       :inCollection="props.card.inCollection"
       class="image-card-scene__menu absolute"
     />
+    <card-button
+      v-if="hasDualFace"
+      icon="auto_stories"
+      class="image-card-scene__flip absolute"
+      @click="flipCard"
+    />
     <div
-      class="image-card"
+      class="full-width full-height"
       :class="{
-        'image-card--is-flipped': flipped,
-        'image-card--not-in-collection': props.card.inCollection === 0,
+        'image-card-container--not-in-collection':
+          props.card.inCollection === 0,
       }"
     >
-      <image-card-single
-        :card-face="frontCard"
-        :in-collection="props.card.inCollection"
-        class="image-card__face image-card__face--front"
-      />
-      <image-card-single
-        v-if="hasDualFace"
-        :card-face="backCard"
-        :in-collection="props.card.inCollection"
-        class="image-card__face image-card__face--back"
-      />
+      <div
+        class="image-card"
+        :class="{
+          'image-card--is-flipped': flipped,
+        }"
+      >
+        <image-card-single
+          :card-face="frontCard"
+          :in-collection="props.card.inCollection"
+          class="image-card__face image-card__face--front"
+        />
+        <image-card-single
+          v-if="hasDualFace"
+          :card-face="backCard"
+          :in-collection="props.card.inCollection"
+          class="image-card__face image-card__face--back"
+        />
+      </div>
     </div>
 
     <div class="image-card-scene__hover" />
@@ -38,6 +51,7 @@ import ImageCardSingle from './ImageCardSingle.vue'
 import CardMenu from './CardMenu.vue'
 import type { ApiCard } from '@/queries/useSearchQuery'
 import useCardActionsQuery from './useCardActionsQuery'
+import CardButton from '../general/CardButton.vue'
 
 type Props = {
   card: ApiCard
@@ -67,15 +81,22 @@ const backCard = computed(() => props.card.cardFaces[1])
   position: relative;
 
   &__menu {
-    position: absolute;
-    top: 13%;
+    top: 20%;
     left: 75%;
     z-index: 1;
     opacity: 0;
   }
 
+  &__flip {
+    top: 45%;
+    left: 65.5%;
+    z-index: 1;
+    opacity: 0;
+  }
+
   &:hover {
-    .image-card-scene__menu {
+    .image-card-scene__menu,
+    .image-card-scene__flip {
       opacity: 1;
     }
 
@@ -102,10 +123,6 @@ const backCard = computed(() => props.card.cardFaces[1])
     transform: rotateY(180deg);
   }
 
-  &--not-in-collection {
-    opacity: 0.4;
-  }
-
   &__face {
     width: 100%;
     height: 100%;
@@ -117,5 +134,9 @@ const backCard = computed(() => props.card.cardFaces[1])
       transform: rotateY(180deg);
     }
   }
+}
+
+.image-card-container--not-in-collection {
+  opacity: 0.4;
 }
 </style>

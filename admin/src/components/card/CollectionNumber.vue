@@ -26,6 +26,10 @@ const getColor = computed(() =>
   top: 50px;
   left: 0;
   right: 0;
+  margin: auto;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
   text-align: center;
 }
 </style>

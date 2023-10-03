@@ -9,7 +9,7 @@
           <div class="mtg-font-bold gt-xs">MTG Collector</div>
         </q-toolbar-title>
 
-        <input-search input-class="text-right" class="input-search" />
+        <input-search input-class="text-left" class="input-search" />
       </q-toolbar>
     </q-header>
 
