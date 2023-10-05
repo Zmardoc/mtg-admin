@@ -17,9 +17,9 @@ async function openConnection() {
 }
 
 // collectionName is like table, for example cards
-async function getCollection<CollectionType extends Document>(collectionName: string) {
+function getCollection<CollectionType extends Document>(collectionName: string) {
   const db = client.db(dbName)
-  return await db.collection<CollectionType>(collectionName)
+  return db.collection<CollectionType>(collectionName)
 }
 
 export { getCollection, openConnection }

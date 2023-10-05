@@ -10,23 +10,21 @@ type Card = {
 const cardCollection = getCollection<Card>(CARDS_COLLECTION)
 
 async function findCard(name: string) {
-  const collection = await cardCollection
-  return await collection.findOne({ name })
+  return await cardCollection.findOne({ name })
 }
 
 async function findCards(name: string) {
-  const collection = await cardCollection
-  return (await collection.find({ name }).toArray()) ?? []
+  return (await cardCollection.find({ name }).toArray()) ?? []
 }
 
 async function insertCard(card: Card) {
-  const collection = await cardCollection
-  await collection.insertOne(card)
+  await cardCollection.insertOne(card)
+  return true
 }
 
 async function updateCard(card: Card) {
-  const collection = await cardCollection
-  collection.updateOne({ name: card.name }, { $set: card })
+  await cardCollection.updateOne({ name: card.name }, { $set: card })
+  return true
 }
 
 export { findCards, insertCard, updateCard, findCard }
