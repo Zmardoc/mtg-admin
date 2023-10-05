@@ -1,8 +1,8 @@
 <template>
-  <router-view />
   <Suspense>
     <test-recognition />
   </Suspense>
+  <router-view />
 </template>
 
 <script setup lang="ts">

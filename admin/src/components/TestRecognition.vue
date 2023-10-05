@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import Tesseract from 'tesseract.js'
 import { ref } from 'vue'
-
+//trening https://www.youtube.com/watch?v=KE4xEzFGSU8&ab_channel=GabrielGarcia
 const FRAMES_X = 50 // calculate every x frames
 
 const WIDTH = 640

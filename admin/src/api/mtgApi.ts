@@ -1,19 +1,18 @@
 import { mtgApi } from '@/boot/axios'
+import { fetchDelete, fetchGet, fetchPost } from './utils'
 
-async function mtgGet<T>(url: string) {
+function mtgGet<T>(url: string) {
   try {
-    const response = await mtgApi.get<T>(url)
-    return response.data
+    return fetchGet<T>(url, mtgApi)
   } catch (e) {
     console.error(e)
     throw e
   }
 }
 
-async function mtgDelete<T>(url: string) {
+function mtgDelete<T>(url: string) {
   try {
-    const response = await mtgApi.delete<T>(url)
-    return response.data
+    return fetchDelete<T>(url, mtgApi)
   } catch (e) {
     console.error(e)
     throw e
@@ -22,8 +21,7 @@ async function mtgDelete<T>(url: string) {
 
 async function mtgPost<T>(url: string, data: unknown) {
   try {
-    const response = await mtgApi.post<T>(url, data)
-    return response.data
+    return fetchPost<T>(url, data, mtgApi)
   } catch (e) {
     console.error(e)
     throw e
