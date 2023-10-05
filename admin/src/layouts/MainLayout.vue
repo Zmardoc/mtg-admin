@@ -3,7 +3,7 @@
     <q-header elevated class="bg-black text-white">
       <q-toolbar>
         <q-btn round @click="toggleLeftDrawer">
-          <img src="~assets/logo.png" height="38" width="22" />
+          <img src="~assets/logo.png" height="38" width="38" alt="logo" />
         </q-btn>
         <q-toolbar-title>
           <div class="mtg-font-bold gt-xs">MTG Collector</div>

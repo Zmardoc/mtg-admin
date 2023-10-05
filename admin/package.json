@@ -2,7 +2,7 @@
   "name": "mtg-admin",
   "version": "0.0.1",
   "description": "Admin web for commander decks and card collection",
-  "productName": "Mtg admin",
+  "productName": "Mtg collector",
   "author": "Martin Mol mol1@seznam.cz",
   "private": true,
   "scripts": {
