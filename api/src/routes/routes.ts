@@ -4,6 +4,8 @@ import { query } from 'express-validator'
 
 import { type Card, insertCard, findCard, updateCard } from '../database/cards'
 import cardSearch from '../api/scryfall/cardSearch'
+import jwt, { Secret } from 'jsonwebtoken'
+import authenticateToken from '../authenticateToken'
 
 type RequestQuery<T> = Request<
   Record<string, never>,
@@ -20,11 +22,40 @@ type SearchQuery = {
   q: string
 }
 
+type User = {
+  id: number
+  username: string
+  password: string
+}
+
 // TODO send error when something occures
 export default function (app: Application) {
+  app.post('/login', (req: Request, res: Response) => {
+    const { username, password } = req.body
+
+    //TODO validate username and password
+    const user: User = { id: 1, username: 'user', password: 'pass' }
+
+    if (user.username === username && user.password === password) {
+      // Vytvoření a odeslání JWT tokenu
+      const token = jwt.sign(
+        { id: user.id, username: user.username },
+        process.env.API_KEY as Secret,
+      )
+      res.json({ token })
+    } else {
+      res.status(401).json({ message: 'Login failed' })
+    }
+  })
+
+  app.get('/login-check', authenticateToken, (_: Request, res: Response) => {
+    res.status(200)
+  })
+
   // TODO swagger nedava example
   app.get(
     '/cards/search',
+    authenticateToken,
     query('q').isString(),
     async (req: RequestQuery<SearchQuery>, res: Response) => {
       // #swagger.tags = ['Cards search']
@@ -50,7 +81,7 @@ export default function (app: Application) {
     },
   )
 
-  app.post('/card', async (req: Request<Card>, res: Response<Card>) => {
+  app.post('/card', authenticateToken, async (req: Request, res: Response<Card>) => {
     // #swagger.tags = ['Cards']
     /*  #swagger.parameters['card'] = {
           in: 'body',

@@ -5,13 +5,47 @@
     "title": "Cards API",
     "description": "A simple Express API"
   },
-  "host": "localhost:8000",
+  "host": "undefined:8000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
+    "/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/cards/search": {
       "get": {
-        "tags": ["Cards search"],
+        "tags": [
+          "Cards search"
+        ],
         "description": "",
         "parameters": [
           {
@@ -29,7 +63,9 @@
     },
     "/card": {
       "post": {
-        "tags": ["Cards"],
+        "tags": [
+          "Cards"
+        ],
         "description": "",
         "parameters": [
           {
@@ -44,7 +80,9 @@
                   "example": "Vizzedrix"
                 }
               },
-              "required": ["name"]
+              "required": [
+                "name"
+              ]
             }
           }
         ],
@@ -55,11 +93,18 @@
         }
       },
       "delete": {
-        "tags": ["Cards remove from collection"],
+        "tags": [
+          "Cards remove from collection"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "name",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "q",
             "in": "query",
             "type": "string"
           }

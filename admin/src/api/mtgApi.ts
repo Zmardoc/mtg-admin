@@ -1,10 +1,4 @@
-import axios from 'axios'
-
-const mtgApi = axios.create({
-  baseURL: process.env.MTG_API,
-})
-
-//TODO osetrit 400,500
+import { mtgApi } from '@/boot/axios'
 
 async function mtgGet<T>(url: string) {
   try {
