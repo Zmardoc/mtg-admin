@@ -8,8 +8,5 @@
 </template>
 
 <script setup lang="ts">
-import { mtgGet } from '@/api/mtgApi'
 import CardDashboard from '@/components/CardDashboard.vue'
-
-mtgGet('/login-check') // TODO better
 </script>

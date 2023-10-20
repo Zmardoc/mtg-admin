@@ -15,7 +15,7 @@ type ResponseToken = {
 const cookieTokenKey = 'jwt'
 
 function useLoginQuery(onSuccess: () => void) {
-  const { notifySuccess } = useNotify()
+  const { notifyWelcome } = useNotify()
 
   async function postLogin(user: User) {
     const response = await mtgPost<ResponseToken>('/login', user)
@@ -28,7 +28,7 @@ function useLoginQuery(onSuccess: () => void) {
       if (data?.token) {
         Cookies.set(cookieTokenKey, data.token, { expires: 7 })
 
-        notifySuccess(`${name} was added to your collection`)
+        notifyWelcome('Welcome, Dungeon Master!')
         onSuccess()
       }
     },

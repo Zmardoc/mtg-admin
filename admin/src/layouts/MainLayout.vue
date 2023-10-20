@@ -1,11 +1,7 @@
 <template>
   <q-layout view="hHh lpR lFr">
-    <main-header @toggleLeftDrawer="toggleLeftDrawer" />
-
-    <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered dark>
-      <!-- drawer content -->
-    </q-drawer>
-
+    <main-header @toggleLeftDrawer="toggleDrawer" />
+    <drawer-menu />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -13,14 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import MainHeader from '@/components/MainHeader.vue'
+import useApplicationStore from '@/stores/applicationStore'
+import DrawerMenu from '@/components/menu/DrawerMenu.vue'
 
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
+const { toggleDrawer } = useApplicationStore()
 </script>
 
 <style lang="scss" scoped>

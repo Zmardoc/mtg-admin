@@ -9,6 +9,7 @@ const mtgApi = axios.create({
 
 export default boot(({ router }) => {
   mtgApi.interceptors.request.use((config) => {
+    console.log('interceptors.request.use')
     const token = Cookies.get(cookieTokenKey)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`

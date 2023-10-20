@@ -41,18 +41,24 @@
 import { ref } from 'vue'
 
 import MainHeader from '@/components/MainHeader.vue'
-import { useLoginQuery } from '@/queries/useLoginQuery'
+import { cookieTokenKey, useLoginQuery } from '@/queries/useLoginQuery'
 import { useRouter } from 'vue-router'
+import { Cookies } from 'quasar'
+import useNotify from '@/composables/useNotify'
 
 const email = ref('')
 const password = ref('')
 
-function redirectToDashboard() {
-  router.push({ name: 'index' })
-}
-
 const { login } = useLoginQuery(redirectToDashboard)
-const router = useRouter()
+const { push } = useRouter()
+const { notifyPrimary } = useNotify()
+
+Cookies.remove(cookieTokenKey)
+notifyPrimary('You have been logged out')
+
+function redirectToDashboard() {
+  push({ name: 'index' })
+}
 
 function submit() {
   login({ username: email.value, password: password.value })
