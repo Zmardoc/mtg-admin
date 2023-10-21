@@ -16,7 +16,9 @@ function useNotify() {
     notify({
       message,
       color: 'dark',
-      timeout: 1000,
+      timeout: 2000,
+      textColor: 'primary',
+      classes: 'mtg-font-bold text-h5 q-pa-md shine',
     })
   }
 

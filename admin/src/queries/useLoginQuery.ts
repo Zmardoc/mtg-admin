@@ -28,7 +28,7 @@ function useLoginQuery(onSuccess: () => void) {
       if (data?.token) {
         Cookies.set(cookieTokenKey, data.token, { expires: 7 })
 
-        notifyWelcome('Welcome, Dungeon Master!')
+        notifyWelcome('Welcome to the dungeon, Master!')
         onSuccess()
       }
     },
