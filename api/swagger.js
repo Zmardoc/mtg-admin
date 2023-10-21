@@ -3,9 +3,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const swaggerAutogen = require('swagger-autogen')()
 const outputFile = 'src/swagger_output.json'
-const endpointsFiles = ['src/routes/routes.ts']
+const endpointsFiles = ['src/routes/routes.ts', 'src/routes/authenticateRoutes.ts']
 
-const port = process.env.PORT ? parseInt(process.env.PORT) : 8000 // TODO env je undefined
+//const port = process.env.PORT ? parseInt(process.env.PORT) : 8000 // TODO env je undefined
 
 const doc = {
   info: {
@@ -13,7 +13,7 @@ const doc = {
     title: 'Cards API', // by default: 'REST API'
     description: 'A simple Express API', // by default: ''
   },
-  host: `${process.env.API}:${port}`,
+  host: 'localhost:8000', // `${process.env.API}:${port}`,
 }
 
 swaggerAutogen(outputFile, endpointsFiles, doc)

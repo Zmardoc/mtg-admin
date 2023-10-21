@@ -51,10 +51,10 @@ const password = ref('')
 
 const { login } = useLoginQuery(redirectToDashboard)
 const { push } = useRouter()
-const { notifyPrimary } = useNotify()
+const { notifyWelcome } = useNotify()
 
 Cookies.remove(cookieTokenKey)
-notifyPrimary('You have been logged out')
+notifyWelcome("We'll meet again, dungeon master!")
 
 function redirectToDashboard() {
   push({ name: 'index' })

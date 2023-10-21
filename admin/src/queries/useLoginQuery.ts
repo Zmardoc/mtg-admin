@@ -15,10 +15,11 @@ type ResponseToken = {
 const cookieTokenKey = 'jwt'
 
 function useLoginQuery(onSuccess: () => void) {
-  const { notifyWelcome } = useNotify()
+  const { notifyWelcome, notifyError } = useNotify()
 
   async function postLogin(user: User) {
     const response = await mtgPost<ResponseToken>('/login', user)
+    console.log(response)
     return response
   }
 
@@ -31,6 +32,10 @@ function useLoginQuery(onSuccess: () => void) {
         notifyWelcome('Welcome to the dungeon, Master!')
         onSuccess()
       }
+    },
+    onError: () => {
+      console.log('asfa')
+      notifyError('Login failed')
     },
   })
 

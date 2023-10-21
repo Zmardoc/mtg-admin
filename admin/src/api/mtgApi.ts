@@ -6,6 +6,7 @@ async function mtgGet<T>(url: string) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 
@@ -15,6 +16,7 @@ async function mtgDelete<T>(url: string) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 
@@ -24,6 +26,7 @@ async function mtgPost<T>(url: string, data: unknown) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 

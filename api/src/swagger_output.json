@@ -5,12 +5,108 @@
     "title": "Cards API",
     "description": "A simple Express API"
   },
-  "host": "undefined:8000",
+  "host": "localhost:8000",
   "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
+    "/cards/search": {
+      "get": {
+        "tags": [
+          "Cards search"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "q",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string",
+                  "example": "Counterspell"
+                }
+              },
+              "required": [
+                "q"
+              ]
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/card": {
+      "post": {
+        "tags": [
+          "Cards"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "card",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Vizzedrix"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cards remove from collection"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Counterspell"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "in": "query"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/login": {
       "post": {
         "description": "",
@@ -41,19 +137,10 @@
         }
       }
     },
-    "/cards/search": {
+    "/login-check": {
       "get": {
-        "tags": [
-          "Cards search"
-        ],
         "description": "",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -61,57 +148,32 @@
         }
       }
     },
-    "/card": {
+    "/register": {
       "post": {
-        "tags": [
-          "Cards"
-        ],
         "description": "",
         "parameters": [
           {
-            "name": "card",
+            "name": "body",
             "in": "body",
-            "description": "add card",
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Vizzedrix"
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
                 }
-              },
-              "required": [
-                "name"
-              ]
+              }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Cards remove from collection"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "type": "string"
+          "201": {
+            "description": "Created"
           },
-          {
-            "name": "q",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          "409": {
+            "description": "Conflict"
           }
         }
       }

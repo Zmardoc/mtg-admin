@@ -12,6 +12,15 @@ function useNotify() {
     })
   }
 
+  function notifyError(message: string) {
+    notify({
+      message,
+      color: 'negative',
+      icon: 'lock',
+      timeout: 1000,
+    })
+  }
+
   function notifyWelcome(message: string) {
     notify({
       message,
@@ -22,15 +31,7 @@ function useNotify() {
     })
   }
 
-  function notifyPrimary(message: string) {
-    notify({
-      message,
-      color: 'primary',
-      timeout: 1000,
-    })
-  }
-
-  return { notifyWelcome, notifySuccess, notifyPrimary }
+  return { notifyWelcome, notifySuccess, notifyError }
 }
 
 export default useNotify

@@ -33,5 +33,5 @@ defineRoutes(app)
 openConnection()
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}/api`)
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}/api`) //TODO brat z env
 })
