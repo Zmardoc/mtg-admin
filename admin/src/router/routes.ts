@@ -1,12 +1,8 @@
-import { mtgGet } from '@/api/mtgApi'
 import { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    beforeEnter() {
-      mtgGet('/login-check')
-    },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {

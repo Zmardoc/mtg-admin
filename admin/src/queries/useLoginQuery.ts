@@ -17,10 +17,8 @@ const cookieTokenKey = 'jwt'
 function useLoginQuery(onSuccess: () => void) {
   const { notifyWelcome, notifyError } = useNotify()
 
-  async function postLogin(user: User) {
-    const response = await mtgPost<ResponseToken>('/login', user)
-    console.log(response)
-    return response
+  function postLogin(user: User) {
+    return mtgPost<ResponseToken>('/login', user)
   }
 
   const { mutate } = useMutation({
@@ -34,7 +32,6 @@ function useLoginQuery(onSuccess: () => void) {
       }
     },
     onError: () => {
-      console.log('asfa')
       notifyError('Login failed')
     },
   })

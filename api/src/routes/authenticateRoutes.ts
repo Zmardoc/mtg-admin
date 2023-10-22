@@ -30,7 +30,7 @@ export default function (app: Application) {
   })
 
   app.get('/login-check', authenticateToken, (_: Request, res: Response) => {
-    res.status(200)
+    res.status(200).json({ message: 'Login successful' })
   })
 
   app.post('/register', async (req, res) => {
