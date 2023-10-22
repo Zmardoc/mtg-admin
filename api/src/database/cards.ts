@@ -5,16 +5,17 @@ const CARDS_COLLECTION = 'cards'
 type Card = {
   name: string
   inCollection: number
+  userId: string
 }
 
 const cardCollection = getCollection<Card>(CARDS_COLLECTION)
 
-async function findCard(name: string) {
-  return await cardCollection.findOne({ name })
+async function findCard(name: string, userId: string) {
+  return await cardCollection.findOne({ name, userId })
 }
 
-async function findCards(name: string) {
-  return (await cardCollection.find({ name }).toArray()) ?? []
+async function findCards(name: string, userId: string) {
+  return (await cardCollection.find({ name, userId }).toArray()) ?? []
 }
 
 async function insertCard(card: Card) {

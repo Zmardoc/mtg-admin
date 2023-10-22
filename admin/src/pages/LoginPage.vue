@@ -45,6 +45,7 @@ import { cookieTokenKey, useLoginQuery } from '@/queries/useLoginQuery'
 import { useRouter } from 'vue-router'
 import { Cookies } from 'quasar'
 import useNotify from '@/composables/useNotify'
+import queryClient from '@/config/query'
 
 type Props = {
   logout?: string
@@ -60,6 +61,7 @@ const email = ref('')
 const password = ref('')
 
 Cookies.remove(cookieTokenKey)
+queryClient.clear() // TODO flush all pinia storage
 
 if (props.logout) {
   notifyWelcome("We'll meet again, dungeon master!")

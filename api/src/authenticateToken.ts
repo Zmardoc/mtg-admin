@@ -1,12 +1,18 @@
 import dotenv from 'dotenv'
 import { NextFunction, Request, Response } from 'express'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { secretKey } from './config/sekretKey'
 
 dotenv.config() // TODO mozna byt nemusi
 
-export interface CustomRequest extends Request {
+/* export interface CustomRequest extends Request {
   token: string | JwtPayload
+} */
+type LoggedUser = {
+  id: string
+  username: string
+  iat: number
+  exp: number
 }
 
 function authenticateToken(req: Request, res: Response, next: NextFunction) {
@@ -17,9 +23,8 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
     }
 
     const decoded = jwt.verify(token, secretKey)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    req.token = decoded
+
+    req.user = decoded as LoggedUser
 
     next()
   } catch (err) {
@@ -28,3 +33,5 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
 }
 
 export default authenticateToken
+
+export type { LoggedUser }

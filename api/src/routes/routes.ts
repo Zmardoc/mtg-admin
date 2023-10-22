@@ -43,9 +43,12 @@ export default function (app: Application) {
       // find cards in database and join them to scryfall response
       const apiResponse = await Promise.all(
         response.map(async (card) => {
+          if (!req.user?.id) return card
+
+          const foundCard = await findCard(card.cardFaces[0].name, req.user.id)
           return {
             ...card,
-            inCollection: (await findCard(card.cardFaces[0].name))?.inCollection ?? 0,
+            inCollection: foundCard?.inCollection ?? 0,
           }
         }),
       )
@@ -62,11 +65,14 @@ export default function (app: Application) {
           $name: 'Vizzedrix'
         }
     } */
-    const dbCard = await findCard(req.body.name)
+    if (!req.user?.id) return // TODO nahovno, uz se to pridava v authenticateToken
+
+    const dbCard = await findCard(req.body.name, req.user.id)
 
     const card: Card = {
       name: req.body.name,
       inCollection: (dbCard?.inCollection ?? 0) + 1,
+      userId: req.user.id,
     }
 
     dbCard ? updateCard(card) : insertCard(card)
@@ -74,12 +80,14 @@ export default function (app: Application) {
     res.send(card)
   })
 
-  function getCard(name: string, inCollection: number): Card {
+  function getCard(name: string, inCollection: number, userId: string): Card {
     return {
       name,
       inCollection,
+      userId,
     }
   }
+
   app.delete(
     '/card',
     query('name').isString(),
@@ -90,10 +98,16 @@ export default function (app: Application) {
             $name: 'Counterspell'
           }
       } */
-      const dbCard = await findCard(req.query.name)
+      if (!req.user?.id) return // TODO nahovno, uz se to pridava v authenticateToken
+
+      const dbCard = await findCard(req.query.name, req.user.id)
       if (!dbCard) return
 
-      const card = getCard(req.query.name, dbCard.inCollection ? dbCard.inCollection - 1 : 0)
+      const card = getCard(
+        req.query.name,
+        dbCard.inCollection ? dbCard.inCollection - 1 : 0,
+        req.user.id,
+      )
       updateCard(card)
       res.send(card)
     },
