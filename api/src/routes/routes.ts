@@ -4,6 +4,8 @@ import { query } from 'express-validator'
 
 import { type Card, insertCard, findCard, updateCard } from '../database/cards'
 import cardSearch from '../api/scryfall/cardSearch'
+import authenticateToken from '../authenticateToken'
+import authenticateRoutes from './authenticateRoutes'
 
 type RequestQuery<T> = Request<
   Record<string, never>,
@@ -22,18 +24,20 @@ type SearchQuery = {
 
 // TODO send error when something occures
 export default function (app: Application) {
+  authenticateRoutes(app)
+
   // TODO swagger nedava example
   app.get(
     '/cards/search',
+    authenticateToken,
     query('q').isString(),
     async (req: RequestQuery<SearchQuery>, res: Response) => {
-      // #swagger.tags = ['Cards search']
-      /*  #swagger.parameters['q'] = {
-          description: 'search card'
+      /*#swagger.tags = ['Cards search']
+        #swagger.parameters['q'] = {
           schema: {
             $q: 'Counterspell'
           }
-    } */
+      } */
       // load all cards from scryfall
       const response = await cardSearch(req.query.q)
       // find cards in database and join them to scryfall response
@@ -50,14 +54,13 @@ export default function (app: Application) {
     },
   )
 
-  app.post('/card', async (req: Request<Card>, res: Response<Card>) => {
-    // #swagger.tags = ['Cards']
-    /*  #swagger.parameters['card'] = {
-          in: 'body',
-          description: 'add card',
-          schema: {
-            $name: 'Vizzedrix'
-          }
+  app.post('/card', authenticateToken, async (req: Request, res: Response<Card>) => {
+    /*#swagger.tags = ['Cards']
+      #swagger.parameters['card'] = {
+        in: 'body',
+        schema: {
+          $name: 'Vizzedrix'
+        }
     } */
     const dbCard = await findCard(req.body.name)
 
@@ -81,12 +84,11 @@ export default function (app: Application) {
     '/card',
     query('name').isString(),
     async (req: RequestQuery<DeleteQuery>, res: Response) => {
-      // #swagger.tags = ['Cards remove from collection']
-      /*  #swagger.parameters['name'] = {
-        description: 'remove card'
-        schema: {
-          $name: 'Counterspell'
-        }
+      /*#swagger.tags = ['Cards remove from collection']
+        #swagger.parameters['name'] = {
+          schema: {
+            $name: 'Counterspell'
+          }
       } */
       const dbCard = await findCard(req.query.name)
       if (!dbCard) return

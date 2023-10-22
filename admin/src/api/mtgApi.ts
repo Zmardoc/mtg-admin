@@ -1,10 +1,4 @@
-import axios from 'axios'
-
-const mtgApi = axios.create({
-  baseURL: process.env.MTG_API,
-})
-
-//TODO osetrit 400,500
+import { mtgApi } from '@/boot/axios'
 
 async function mtgGet<T>(url: string) {
   try {
@@ -12,6 +6,7 @@ async function mtgGet<T>(url: string) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 
@@ -21,6 +16,7 @@ async function mtgDelete<T>(url: string) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 
@@ -30,6 +26,7 @@ async function mtgPost<T>(url: string, data: unknown) {
     return response.data
   } catch (e) {
     console.error(e)
+    throw e
   }
 }
 
