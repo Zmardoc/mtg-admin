@@ -1,9 +1,16 @@
 import { Document, MongoClient } from 'mongodb'
+import dotenv from 'dotenv'
 
-const DB_PORT = 27017 //TODO do envu a zprovoznit
+dotenv.config()
 
-const url = `mongodb://localhost:${DB_PORT}`
-const client = new MongoClient(url, { family: 4 })
+const connectionString = process.env.MONGO_DB
+let client: MongoClient
+
+if (connectionString) {
+  client = new MongoClient(connectionString, { family: 4 })
+} else {
+  throw new Error('MONGO_DB env variable is not set')
+}
 
 const dbName = 'mtg'
 
