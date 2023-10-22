@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-item clickable :to="{ name: props.pathName }">
+    <q-item clickable :to="to">
       <q-item-section avatar>
         <q-icon :name="props.icon" />
       </q-item-section>
@@ -14,10 +14,12 @@
 </template>
 
 <script setup lang="ts">
+import { RouteLocationRaw } from 'vue-router'
+
 type Props = {
   label: string
   icon: string
-  pathName: string
+  to: RouteLocationRaw
   separator?: boolean
 }
 const props = defineProps<Props>()

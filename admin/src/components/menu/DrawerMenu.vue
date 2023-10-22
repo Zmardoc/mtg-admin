@@ -3,7 +3,12 @@
     <q-scroll-area class="fit">
       <q-list>
         <q-space />
-        <menu-item icon="logout" label="Logout" path-name="login" />
+        <menu-item
+          icon="logout"
+          label="Logout"
+          path-name="login"
+          :to="{ name: 'login', params: { logout: 'logout' } }"
+        />
       </q-list>
     </q-scroll-area>
   </q-drawer>

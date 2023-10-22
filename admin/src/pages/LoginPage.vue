@@ -46,15 +46,24 @@ import { useRouter } from 'vue-router'
 import { Cookies } from 'quasar'
 import useNotify from '@/composables/useNotify'
 
-const email = ref('')
-const password = ref('')
+type Props = {
+  logout?: string
+}
+
+const props = defineProps<Props>()
 
 const { login } = useLoginQuery(redirectToDashboard)
 const { push } = useRouter()
 const { notifyWelcome } = useNotify()
 
+const email = ref('')
+const password = ref('')
+
 Cookies.remove(cookieTokenKey)
-notifyWelcome("We'll meet again, dungeon master!")
+
+if (props.logout) {
+  notifyWelcome("We'll meet again, dungeon master!")
+}
 
 function redirectToDashboard() {
   push({ name: 'index' })
