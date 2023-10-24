@@ -28,3 +28,10 @@ const props = defineProps<Props>()
 
 const emits = defineEmits<(event: 'toggleLeftDrawer') => void>()
 </script>
+
+<style lang="scss" scoped>
+.input-search {
+  width: 100%;
+  max-width: 375px;
+}
+</style>
