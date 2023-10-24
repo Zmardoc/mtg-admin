@@ -1,5 +1,5 @@
 <template>
-  <span class="dashboard-text">
+  <span class="dashboard-text mtg-font-bold">
     {{ props.text }}
   </span>
 </template>

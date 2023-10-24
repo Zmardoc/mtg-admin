@@ -3,7 +3,7 @@
     <main-header empty-header />
     <q-page-container>
       <q-page class="window-width row justify-center items-center">
-        <q-card class="login-card q-pa-md q-mx-sm">
+        <q-card flat bordered class="login-card q-pa-md q-mx-sm">
           <q-card-section>
             <q-form @submit="submit">
               <q-input

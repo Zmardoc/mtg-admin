@@ -1,6 +1,5 @@
 <template>
   <q-input
-    dark
     dense
     standout
     placeholder="Type for a card"
@@ -11,13 +10,7 @@
   >
     <template #append>
       <q-icon v-if="!cardSearch" name="search" dark />
-      <q-icon
-        v-else
-        name="clear"
-        class="cursor-pointer"
-        dark
-        @click="resetSearch"
-      />
+      <q-icon v-else name="clear" class="cursor-pointer" @click="resetSearch" />
     </template>
   </q-input>
 </template>

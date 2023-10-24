@@ -1,5 +1,5 @@
 <template>
-  <q-header elevated class="bg-black text-white">
+  <q-header class="bg-black text-white">
     <q-toolbar>
       <q-btn v-if="!props.emptyHeader" round @click="emits('toggleLeftDrawer')">
         <img src="~assets/logo.png" height="38" width="38" alt="logo" />
