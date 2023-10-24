@@ -7,6 +7,7 @@
     v-model="cardSearch"
     :input-class="props.inputClass"
     debounce="500"
+    @focus="(input) => ((input.target as HTMLInputElement)?.select?.())"
   >
     <template #append>
       <q-icon v-if="!cardSearch" name="search" dark />
