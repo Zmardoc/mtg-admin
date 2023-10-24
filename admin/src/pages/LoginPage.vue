@@ -54,7 +54,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { login } = useLoginQuery(redirectToDashboard)
-const { push } = useRouter()
+const { push, currentRoute } = useRouter()
 const { notifyWelcome } = useNotify()
 
 const email = ref('')
@@ -68,7 +68,10 @@ if (props.logout) {
 }
 
 function redirectToDashboard() {
-  push({ name: 'index' })
+  push({
+    name: 'index',
+    params: { cardSearch: currentRoute.value.params.cardSearch },
+  })
 }
 
 function submit() {

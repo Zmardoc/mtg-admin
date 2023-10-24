@@ -20,7 +20,13 @@ export default boot(({ router }) => {
     (response) => response,
     (error) => {
       if ([401, 403].includes(error.response.status)) {
-        router.replace({ name: 'login', params: { logout: 'logout' } })
+        router.push({
+          name: 'login',
+          params: {
+            logout: 'logout',
+            cardSearch: router.currentRoute.value.params.cardSearch,
+          },
+        })
       }
       return Promise.reject(error)
     }

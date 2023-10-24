@@ -8,12 +8,13 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/:cardSearch?',
         name: 'index',
+        props: true,
         component: () => import('pages/IndexPage.vue'),
       },
     ],
   },
   {
-    path: '/login/:logout?',
+    path: '/login/:logout?/:cardSearch?',
     name: 'login',
     props: true,
     component: () => import('pages/LoginPage.vue'),

@@ -35,11 +35,21 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   })
 
-  Router.beforeResolve(async (to, _, next) => {
+  Router.beforeResolve(async (to, from, next) => {
+    //TODO tohle je nahovno pac kdyz to dostane 40x tak se to redirectuje pred nextem
     if (to.name !== 'login') {
-      await mtgGet('/login-check')
+      try {
+        await mtgGet('/login-check')
+        next()
+      } catch (e) {
+        next({
+          name: 'login',
+          params: { logout: 'logout', cardSearch: to.params.cardSearch },
+        })
+      }
+    } else {
+      next()
     }
-    next()
   })
 
   return Router

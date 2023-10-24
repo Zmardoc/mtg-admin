@@ -7,7 +7,10 @@
           icon="logout"
           label="Logout"
           path-name="login"
-          :to="{ name: 'login', params: { logout: 'logout' } }"
+          :to="{
+            name: 'login',
+            params: { logout: 'logout', cardSearch: route.params.cardSearch },
+          }"
         />
       </q-list>
     </q-scroll-area>
@@ -18,8 +21,10 @@
 import MenuItem from '@/components/menu/MenuItem.vue'
 import useApplicationStore from '@/stores/applicationStore'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const applicationStore = useApplicationStore()
+const route = useRoute()
 
 const drawerOpen = computed({
   get: () => applicationStore.drawer,
