@@ -1,9 +1,9 @@
 import { computed } from 'vue'
 import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
-import { useSearchBarStore } from '@/stores/searchBarStore'
 import { mtgGet } from '@/api/mtgApi'
 import queryClient from '@/config/query'
+import { useRoute, useRouter } from 'vue-router'
 
 type CardFace = {
   name: string
@@ -16,9 +16,10 @@ type ApiCard = {
   cardFaces: CardFace[]
   inCollection: number
 }
-
+// TODO rozdelit query a composable
 function useSearchQuery() {
-  const searchBarStore = useSearchBarStore()
+  const router = useRouter()
+  const route = useRoute()
 
   async function searchCards(cardTitle: string) {
     if (cardTitle === '') return []
@@ -28,8 +29,10 @@ function useSearchQuery() {
   }
 
   const cardSearch = computed({
-    get: () => searchBarStore.searchText,
-    set: (value) => searchBarStore.setSearchText(value),
+    get: () => route.params.cardSearch as string,
+    set: (value) => {
+      router.push({ name: 'index', params: { cardSearch: value } })
+    },
   })
 
   const cardSearchQueryKey = queryKeys.search(cardSearch)
@@ -41,7 +44,7 @@ function useSearchQuery() {
       retry: false,
     }
   )
-
+  // Update on data change basically
   function updateSearch(
     updateFunction: (oldData: ApiCard[] | undefined) => ApiCard[] | undefined
   ) {
