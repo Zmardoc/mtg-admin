@@ -90,7 +90,7 @@ export default function (app: Application) {
 
   app.delete(
     '/card',
-    query('name').isString(),
+    [authenticateToken, query('name').isString()],
     async (req: RequestQuery<DeleteQuery>, res: Response) => {
       /*#swagger.tags = ['Cards remove from collection']
         #swagger.parameters['name'] = {
