@@ -27,7 +27,7 @@ function useNotify() {
       color: 'dark',
       timeout: 2000,
       textColor: 'primary',
-      classes: 'mtg-font-bold text-h5 q-pa-md shine',
+      classes: 'mtg-font-bold',
     })
   }
 
