@@ -39,7 +39,7 @@ export default route(function (/* { store, ssrContext } */) {
     //TODO tohle je nahovno pac kdyz to dostane 40x tak se to redirectuje pred nextem
     if (to.name !== 'login') {
       try {
-        await mtgGet('/login-check')
+        await mtgGet('/authorization/login-check')
         next()
       } catch (e) {
         next({

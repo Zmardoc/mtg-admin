@@ -1,5 +1,8 @@
 import sryfallBase from './sryfallBase'
+
+import type { AxiosResponse } from 'axios'
 import type { ScryfallCard, ScryfallCardSearchResponse } from './sryfallSearchTypes'
+import type { ErrorResponse } from '../types'
 
 type CardFace = {
   name: string
@@ -12,6 +15,10 @@ type ApiCard = {
   cardFaces: CardFace[]
   inCollection: number
 }
+
+type ScryfallResponse = ScryfallCardSearchResponse | ErrorResponse
+type ScryfallAxiosResponse = AxiosResponse<ScryfallResponse, unknown>
+type ScryfallSuccessAxiosResponse = AxiosResponse<ScryfallCardSearchResponse, unknown>
 
 function convertToCardFaces(card: ScryfallCard): CardFace[] {
   if (card.card_faces && !card.image_uris) {
@@ -38,16 +45,31 @@ function convertToApi(cards: ScryfallCard[]): ApiCard[] {
   }))
 }
 
+function successfullResponse(
+  response: ScryfallAxiosResponse,
+): response is ScryfallSuccessAxiosResponse {
+  return response.status === 200
+}
+
 async function cardSearch(query: string) {
   if (query === '') return []
-  //TODO osetrit 400,500
   try {
-    const response = await sryfallBase.get<ScryfallCardSearchResponse>(`/cards/search?q=${query}`)
-    return response.data ? convertToApi(response.data.data) : []
+    const response = await sryfallBase.get<ScryfallResponse>(`/cards/search?q=${query}`)
+
+    if (successfullResponse(response)) {
+      return response.data ? convertToApi(response.data.data) : []
+    } else {
+      return response.data as ErrorResponse
+    }
   } catch (error) {
-    console.error(error)
-    return []
+    return {
+      status: 500,
+      code: 'scryfall_server_error',
+      details: 'Something went wrong on my poor, poor server when calling scryfall api.',
+      stack: error,
+    } as ErrorResponse
   }
 }
 
 export default cardSearch
+export type { ApiCard }

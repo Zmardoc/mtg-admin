@@ -20,5 +20,4 @@ async function insertUser(user: User) {
 }
 
 export { insertUser, findUser }
-
 export type { User }

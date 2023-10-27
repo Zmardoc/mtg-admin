@@ -13,7 +13,7 @@ function useCardActionsQuery() {
   const { notifySuccess } = useNotify()
 
   async function postAddCard(name: string) {
-    const response = await mtgPost<CollectionCard>('/card', { name })
+    const response = await mtgPost<CollectionCard>('/card/upsert', { name })
     if (response) {
       notifySuccess(`${name} was added to your collection`)
     }

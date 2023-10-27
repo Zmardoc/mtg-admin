@@ -1,13 +1,8 @@
-import dotenv from 'dotenv'
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { secretKey } from './config/sekretKey'
+import { secretKey } from './config/configEnv'
+import { getError, missingSecretEnv, notLoggedIn, tokenMissing } from './errors'
 
-dotenv.config() // TODO mozna byt nemusi
-
-/* export interface CustomRequest extends Request {
-  token: string | JwtPayload
-} */
 type LoggedUser = {
   id: string
   username: string
@@ -17,10 +12,10 @@ type LoggedUser = {
 
 function authenticateToken(req: Request, res: Response, next: NextFunction) {
   try {
+    if (!secretKey) return getError(res, missingSecretEnv)
+
     const token = req.headers.authorization?.replace('Bearer ', '')
-    if (!token) {
-      return res.status(401).json({ message: 'Token missing' })
-    }
+    if (!token) return getError(res, tokenMissing)
 
     const decoded = jwt.verify(token, secretKey)
 
@@ -28,10 +23,9 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
 
     next()
   } catch (err) {
-    res.status(401).json({ message: 'Koukej se přihlásit zmrde' })
+    return getError(res, notLoggedIn)
   }
 }
 
 export default authenticateToken
-
 export type { LoggedUser }

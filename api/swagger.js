@@ -1,11 +1,8 @@
-//import swaggerAutogen from 'swagger-autogen'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const swaggerAutogen = require('swagger-autogen')()
+/* eslint-disable @typescript-eslint/no-var-requires */
+require('dotenv').config()
+const swaggerAutogen = require('swagger-autogen')() //TODO opravit js na ts
 const outputFile = 'src/swagger_output.json'
-const endpointsFiles = ['src/routes/routes.ts', 'src/routes/authenticateRoutes.ts']
-
-//const port = process.env.PORT ? parseInt(process.env.PORT) : 8000 // TODO env je undefined
+const endpointsFiles = ['src/routes/routes.ts'] //, 'src/routes/authenticateRoutes.ts'
 
 const doc = {
   info: {
@@ -13,7 +10,7 @@ const doc = {
     title: 'Cards API', // by default: 'REST API'
     description: 'A simple Express API', // by default: ''
   },
-  host: 'localhost:8000', // `${process.env.API}:${port}`,
+  host: `${process.env.API}:${process.env.PORT}`,
 }
 
 swaggerAutogen(outputFile, endpointsFiles, doc)

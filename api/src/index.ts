@@ -1,14 +1,11 @@
 import express, { type Express } from 'express'
-import dotenv from 'dotenv'
 import defineRoutes from './routes/routes'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger_output.json'
 import cors from 'cors'
 import { openConnection } from './database/mongoClient'
+import { port } from './config/configEnv'
 
-dotenv.config()
-
-const port = process.env.PORT ? parseInt(process.env.PORT) : 8000
 const app: Express = express()
 
 app.use((req, res, next) => {
@@ -33,5 +30,5 @@ defineRoutes(app)
 openConnection()
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}/api`) //TODO brat z env
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}/api`)
 })

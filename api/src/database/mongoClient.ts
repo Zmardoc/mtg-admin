@@ -1,18 +1,14 @@
 import { Document, MongoClient } from 'mongodb'
-import dotenv from 'dotenv'
+import { connectionString } from '../config/configEnv'
 
-dotenv.config()
-
-const connectionString = process.env.MONGO_DB
 let client: MongoClient
+const DB_NAME = 'mtg'
 
 if (connectionString) {
   client = new MongoClient(connectionString, { family: 4 })
 } else {
   throw new Error('MONGO_DB env variable is not set')
 }
-
-const dbName = 'mtg'
 
 async function openConnection() {
   try {
@@ -25,7 +21,7 @@ async function openConnection() {
 
 // collectionName is like table, for example cards
 function getCollection<CollectionType extends Document>(collectionName: string) {
-  const db = client.db(dbName)
+  const db = client.db(DB_NAME)
   return db.collection<CollectionType>(collectionName)
 }
 
