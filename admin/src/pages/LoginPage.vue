@@ -28,6 +28,7 @@
                 color="primary"
                 label="Login"
                 class="q-mt-md"
+                :loading="isLoading"
               />
             </q-form>
           </q-card-section>
@@ -53,7 +54,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { login } = useLoginQuery(redirectToDashboard)
+const { login, isLoading } = useLoginQuery(redirectToDashboard)
 const { push, currentRoute } = useRouter()
 const { notifyWelcome } = useNotify()
 
@@ -82,5 +83,15 @@ function submit() {
 <style lang="scss" scoped>
 .login-card {
   width: 400px;
+}
+
+:deep(.q-field--dark) {
+  input,
+  select {
+    color: #fff;
+    -webkit-text-fill-color: white;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+  }
 }
 </style>

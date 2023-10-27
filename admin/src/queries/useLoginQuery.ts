@@ -21,7 +21,7 @@ function useLoginQuery(onSuccess: () => void) {
     return mtgPost<ResponseToken>('/login', user)
   }
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: (user: User) => postLogin(user),
     onSuccess: (data) => {
       if (data?.token) {
@@ -40,7 +40,7 @@ function useLoginQuery(onSuccess: () => void) {
     mutate(user)
   }
 
-  return { login }
+  return { login, isLoading }
 }
 
 export { cookieTokenKey, useLoginQuery }
