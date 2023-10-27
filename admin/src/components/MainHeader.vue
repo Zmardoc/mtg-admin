@@ -10,7 +10,7 @@
       </q-toolbar-title>
 
       <input-search
-        v-show="cardSearch || screen.lt.sm"
+        v-show="!props.emptyHeader && (cardSearch || screen.lt.sm)"
         input-class="text-left"
         class="input-search"
       />
