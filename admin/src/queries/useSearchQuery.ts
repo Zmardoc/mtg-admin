@@ -22,14 +22,16 @@ function useSearchQuery() {
   const route = useRoute()
 
   async function searchCards(cardTitle: string) {
-    if (cardTitle === '') return []
+    if (!cardTitle) return []
 
     const response = await mtgGet<ApiCard[]>(`/cards/search?q=${cardTitle}`)
     return response ?? []
   }
 
   const cardSearch = computed({
-    get: () => route.params.cardSearch as string,
+    get: () => {
+      return (route.params.cardSearch as string | undefined) ?? ''
+    },
     set: (value) => {
       router.push({ name: 'index', params: { cardSearch: value } })
     },
@@ -44,6 +46,7 @@ function useSearchQuery() {
       retry: false,
     }
   )
+
   // Update on data change basically
   function updateSearch(
     updateFunction: (oldData: ApiCard[] | undefined) => ApiCard[] | undefined

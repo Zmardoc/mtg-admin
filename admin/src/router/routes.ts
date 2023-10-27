@@ -4,9 +4,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    redirect: '/search',
     children: [
       {
-        path: '/:cardSearch?',
+        path: '/search/:cardSearch?',
         name: 'index',
         props: true,
         component: () => import('pages/IndexPage.vue'),

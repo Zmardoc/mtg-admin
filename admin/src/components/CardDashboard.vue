@@ -13,7 +13,7 @@
         />
       </div>
       <dashboard-text v-else-if="cardSearch" text="CAN'T FIND ANY CARD" />
-      <dashboard-text v-else text="TYPE FOR A CARD" />
+      <input-search v-else input-class="text-left" class="input-search gt-xs" />
     </template>
     <dashboard-text v-else text="LOADING..." />
   </div>
@@ -23,6 +23,7 @@
 import useSearchQuery from '@/queries/useSearchQuery'
 import ImageCard from '@/components/card/ImageCard.vue'
 import DashboardText from '@/components/DashboardText.vue'
+import InputSearch from '@/components/InputSearch.vue'
 
 const { cards, isFetching, cardSearch } = useSearchQuery()
 </script>
@@ -32,5 +33,9 @@ $container-padding: 8px;
 
 .card-dashboard {
   max-width: ($card-width + $container-padding) * 6;
+}
+
+.input-search {
+  width: 400px;
 }
 </style>

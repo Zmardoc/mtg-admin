@@ -10,7 +10,7 @@
       </q-toolbar-title>
 
       <input-search
-        v-if="!props.emptyHeader"
+        v-show="cardSearch || screen.lt.sm"
         input-class="text-left"
         class="input-search"
       />
@@ -20,13 +20,17 @@
 
 <script setup lang="ts">
 import InputSearch from '@/components/InputSearch.vue'
+import useSearchQuery from '@/queries/useSearchQuery'
+import { useQuasar } from 'quasar'
 
 type Props = {
   emptyHeader?: boolean
 }
 const props = defineProps<Props>()
-
 const emits = defineEmits<(event: 'toggleLeftDrawer') => void>()
+
+const { cardSearch } = useSearchQuery()
+const { screen } = useQuasar()
 </script>
 
 <style lang="scss" scoped>

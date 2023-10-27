@@ -2,7 +2,7 @@
   <q-input
     dense
     standout
-    placeholder="Type for a card"
+    placeholder="Search cards..."
     v-model="cardSearch"
     :input-class="props.inputClass"
     debounce="500"
