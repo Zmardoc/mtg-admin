@@ -1,7 +1,8 @@
 import { mtgDelete, mtgPost } from '@/api/mtgApi'
 import useNotify from '@/composables/useNotify'
-import useSearchQuery, { ApiCard } from '@/queries/useSearchQuery'
 import { useMutation } from '@tanstack/vue-query'
+import useCardSearch from './useCardSearch'
+import type { ApiCard } from '@/queries/useSearchQuery'
 
 type CollectionCard = {
   name: string
@@ -9,7 +10,7 @@ type CollectionCard = {
 }
 
 function useCardActionsQuery() {
-  const { updateSearch } = useSearchQuery()
+  const { updateSearch } = useCardSearch()
   const { notifySuccess } = useNotify()
 
   async function postAddCard(name: string) {

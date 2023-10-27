@@ -49,9 +49,9 @@
 import { computed, ref } from 'vue'
 import ImageCardSingle from './ImageCardSingle.vue'
 import CardMenu from './CardMenu.vue'
-import type { ApiCard } from '@/queries/useSearchQuery'
 import useCardActionsQuery from './useCardActionsQuery'
 import CardButton from '../general/CardButton.vue'
+import { ApiCard } from '@/queries/useSearchQuery'
 
 type Props = {
   card: ApiCard
@@ -140,3 +140,4 @@ const backCard = computed(() => props.card.cardFaces[1])
   opacity: 0.4;
 }
 </style>
+@/queries/useSearch

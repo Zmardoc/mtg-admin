@@ -20,12 +20,17 @@
 </template>
 
 <script setup lang="ts">
-import useSearchQuery from '@/queries/useSearchQuery'
+import useCardSearch from '@/components/card/useCardSearch'
 import ImageCard from '@/components/card/ImageCard.vue'
 import DashboardText from '@/components/DashboardText.vue'
 import InputSearch from '@/components/InputSearch.vue'
+import useSearchQuery from '@/queries/useSearchQuery'
+import { computed } from 'vue'
 
-const { cards, isFetching, cardSearch } = useSearchQuery()
+const { cardSearch } = useCardSearch()
+const { data, isFetching } = useSearchQuery()
+
+const cards = computed(() => data.value ?? [])
 </script>
 
 <style scoped lang="scss">

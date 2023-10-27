@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { CardFace } from '@/queries/useSearchQuery'
+import type { CardFace } from '@/queries/useSearchQuery'
 import CollectionNumber from './CollectionNumber.vue'
 import EmptyCard from './EmptyCard.vue'
 
@@ -37,3 +37,4 @@ const props = defineProps<Props>()
   border-radius: 12px;
 }
 </style>
+@/queries/useSearch

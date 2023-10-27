@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import InputSearch from '@/components/InputSearch.vue'
-import useSearchQuery from '@/queries/useSearchQuery'
+import useCardSearch from '@/components/card/useCardSearch'
 import { useQuasar } from 'quasar'
 
 type Props = {
@@ -29,7 +29,7 @@ type Props = {
 const props = defineProps<Props>()
 const emits = defineEmits<(event: 'toggleLeftDrawer') => void>()
 
-const { cardSearch } = useSearchQuery()
+const { cardSearch } = useCardSearch()
 const { screen } = useQuasar()
 </script>
 
@@ -39,3 +39,4 @@ const { screen } = useQuasar()
   max-width: 375px;
 }
 </style>
+@/queries/useSearch
