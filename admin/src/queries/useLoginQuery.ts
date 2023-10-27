@@ -18,7 +18,7 @@ function useLoginQuery(onSuccess: () => void) {
   const { notifyWelcome, notifyError } = useNotify()
 
   function postLogin(user: User) {
-    return mtgPost<ResponseToken>('/login', user)
+    return mtgPost<ResponseToken>('/authorization/login', user)
   }
 
   const { mutate, isLoading } = useMutation({

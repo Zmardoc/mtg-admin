@@ -24,7 +24,7 @@ function useSearchQuery() {
   async function searchCards(cardTitle: string) {
     if (!cardTitle) return []
 
-    const response = await mtgGet<ApiCard[]>(`/cards/search?q=${cardTitle}`)
+    const response = await mtgGet<ApiCard[]>(`/card/search?q=${cardTitle}`)
     return response ?? []
   }
 
