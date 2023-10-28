@@ -4,7 +4,22 @@ import { ApiCard } from '@/queries/useSearchQuery'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-type UpdateFunction = (oldData: ApiCard[] | undefined) => ApiCard[] | undefined
+type CollectionCard = {
+  name: string
+  inCollection: number
+}
+
+function getUpdatedSearch(newCard: CollectionCard, oldData?: ApiCard[]) {
+  return oldData?.map((card) => {
+    if (card.cardFaces[0].name === newCard.name) {
+      return {
+        ...card,
+        inCollection: newCard.inCollection,
+      }
+    }
+    return card
+  })
+}
 
 function useCardSearch() {
   const router = useRouter()
@@ -18,8 +33,12 @@ function useCardSearch() {
   })
 
   // Update on data change basically
-  function updateSearch(updateFunction: UpdateFunction) {
-    queryClient.setQueryData(queryKeys.search(cardSearch), updateFunction)
+  function updateSearch(collectionCard: CollectionCard) {
+    const searchKey = queryKeys.search(cardSearch)
+
+    queryClient.setQueryData(searchKey, (oldData?: ApiCard[]) =>
+      getUpdatedSearch(collectionCard, oldData)
+    )
   }
 
   return {
@@ -29,3 +48,4 @@ function useCardSearch() {
 }
 
 export default useCardSearch
+export type { CollectionCard }
