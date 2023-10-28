@@ -19,9 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import InputSearch from '@/components/InputSearch.vue'
-import useCardSearch from '@/components/card/useCardSearch'
 import { useQuasar } from 'quasar'
+import { useCardSearch, InputSearch } from './InputSearch'
 
 type Props = {
   emptyHeader?: boolean

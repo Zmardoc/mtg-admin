@@ -3,11 +3,7 @@ import queryKeys from '@/queries/queryKeys'
 import { ApiCard } from '@/queries/useSearchQuery'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
-type CollectionCard = {
-  name: string
-  inCollection: number
-}
+import type { CollectionCard } from '.'
 
 function getUpdatedSearch(newCard: CollectionCard, oldData?: ApiCard[]) {
   return oldData?.map((card) => {
@@ -48,4 +44,3 @@ function useCardSearch() {
 }
 
 export default useCardSearch
-export type { CollectionCard }

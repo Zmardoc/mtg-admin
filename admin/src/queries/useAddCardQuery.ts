@@ -1,9 +1,7 @@
 import { mtgPost } from '@/api/mtgApi'
 import useNotify from '@/composables/useNotify'
 import { useMutation } from '@tanstack/vue-query'
-import useCardSearch, {
-  type CollectionCard,
-} from '@/components/card/useCardSearch'
+import { type CollectionCard, useCardSearch } from '@/components/InputSearch'
 
 function useAddCardQuery() {
   const { updateSearch } = useCardSearch()

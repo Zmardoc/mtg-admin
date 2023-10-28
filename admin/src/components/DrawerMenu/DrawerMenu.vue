@@ -18,10 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import MenuItem from '@/components/menu/MenuItem.vue'
 import useApplicationStore from '@/stores/applicationStore'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import MenuItem from './MenuItem.vue'
 
 const applicationStore = useApplicationStore()
 const route = useRoute()

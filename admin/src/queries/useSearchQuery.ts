@@ -1,7 +1,7 @@
 import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
 import { mtgGet } from '@/api/mtgApi'
-import useCardSearch from '@/components/card/useCardSearch'
+import { useCardSearch } from '@/components/InputSearch'
 
 type CardFace = {
   name: string

@@ -49,8 +49,8 @@
 import { computed, ref } from 'vue'
 import ImageCardSingle from './ImageCardSingle.vue'
 import CardMenu from './CardMenu.vue'
-import CardButton from '../general/CardButton.vue'
-import { ApiCard } from '@/queries/useSearchQuery'
+import CardButton from './CardButton.vue'
+import type { ApiCard } from '@/queries/useSearchQuery'
 import useAddCardQuery from '@/queries/useAddCardQuery'
 import useDeleteCardQuery from '@/queries/useDeleteCardQuery'
 
@@ -69,7 +69,7 @@ function flipCard() {
     flipped.value = !flipped.value
   }
 }
-
+// TODO maybe send frontFace and back face instead of an array
 const frontCard = computed(() => props.card.cardFaces[0])
 const backCard = computed(() => props.card.cardFaces[1])
 </script>

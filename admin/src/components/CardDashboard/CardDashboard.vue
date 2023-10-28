@@ -5,7 +5,7 @@
         v-if="cards.length"
         class="card-dashboard flex justify-center q-py-xs"
       >
-        <ImageCard
+        <image-card
           v-for="card in cards"
           :key="card.id"
           :card="card"
@@ -20,12 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import useCardSearch from '@/components/card/useCardSearch'
-import ImageCard from '@/components/card/ImageCard.vue'
-import DashboardText from '@/components/DashboardText.vue'
-import InputSearch from '@/components/InputSearch.vue'
-import useSearchQuery from '@/queries/useSearchQuery'
+import DashboardText from './DashboardText.vue'
+import { InputSearch, useCardSearch } from '@/components/InputSearch'
 import { computed } from 'vue'
+import { ImageCard } from '../ImageCard'
+import useSearchQuery from '@/queries/useSearchQuery'
 
 const { cardSearch } = useCardSearch()
 const { data, isFetching } = useSearchQuery()

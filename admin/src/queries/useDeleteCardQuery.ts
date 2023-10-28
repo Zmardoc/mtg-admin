@@ -1,7 +1,7 @@
 import { mtgDelete } from '@/api/mtgApi'
+import { type CollectionCard, useCardSearch } from '@/components/InputSearch'
 import useNotify from '@/composables/useNotify'
 import { useMutation } from '@tanstack/vue-query'
-import useCardSearch, { CollectionCard } from '@/components/card/useCardSearch'
 
 function useDeleteCardQuery() {
   const { updateSearch } = useCardSearch()

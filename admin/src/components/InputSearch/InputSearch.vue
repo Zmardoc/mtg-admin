@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import useCardSearch from '@/components/card/useCardSearch'
+import useCardSearch from './useCardSearch'
 
 type Props = {
   inputClass?: string
