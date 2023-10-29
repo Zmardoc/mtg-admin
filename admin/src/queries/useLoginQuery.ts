@@ -24,7 +24,7 @@ function useLoginQuery() {
       if (data?.token) {
         Cookies.set(COOKIE_TOKEN_KEY, data.token, { expires: 7 })
 
-        notifyWelcome('Welcome to the dungeon, Master!')
+        notifyWelcome('Welcome to the dungeon')
         redirectToDashboard()
       } else {
         notifyError('Login failed')
@@ -41,3 +41,4 @@ function useLoginQuery() {
 }
 
 export default useLoginQuery
+export type { User }
