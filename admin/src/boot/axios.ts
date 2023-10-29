@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Cookies } from 'quasar'
-import { cookieTokenKey } from '@/queries/useLoginQuery'
+import { COOKIE_TOKEN_KEY } from '@/config/cookieTokenKey'
 
 const mtgApi = axios.create({
   baseURL: process.env.MTG_API,
@@ -9,7 +9,7 @@ const mtgApi = axios.create({
 
 export default boot(({ router }) => {
   mtgApi.interceptors.request.use((config) => {
-    const token = Cookies.get(cookieTokenKey)
+    const token = Cookies.get(COOKIE_TOKEN_KEY)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

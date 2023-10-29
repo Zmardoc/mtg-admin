@@ -44,12 +44,12 @@
 import { ref } from 'vue'
 
 import MainHeader from '@/components/MainHeader.vue'
-import { cookieTokenKey, useLoginQuery } from '@/queries/useLoginQuery'
-import { useRouter } from 'vue-router'
+import useLoginQuery from '@/queries/useLoginQuery'
 import { Cookies } from 'quasar'
 import useNotify from '@/composables/useNotify'
 import queryClient from '@/config/query'
 import useApplicationStore from '@/stores/applicationStore'
+import { COOKIE_TOKEN_KEY } from '@/config/cookieTokenKey'
 
 type Props = {
   logout?: string
@@ -57,8 +57,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { login, isLoading } = useLoginQuery(redirectToDashboard)
-const { push, currentRoute } = useRouter()
+const { mutate, isLoading } = useLoginQuery()
 const { notifyWelcome } = useNotify()
 const { setDrawer } = useApplicationStore()
 
@@ -66,22 +65,15 @@ const email = ref('')
 const password = ref('')
 
 setDrawer(false)
-Cookies.remove(cookieTokenKey)
+Cookies.remove(COOKIE_TOKEN_KEY)
 queryClient.clear() // TODO flush all pinia storage
 
 if (props.logout) {
   notifyWelcome("We'll meet again, dungeon master!")
 }
 
-function redirectToDashboard() {
-  push({
-    name: 'index',
-    params: { cardSearch: currentRoute.value.params.cardSearch },
-  })
-}
-
 function submit() {
-  login({ username: email.value, password: password.value })
+  mutate({ username: email.value, password: password.value })
 }
 </script>
 

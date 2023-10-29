@@ -1,5 +1,7 @@
 import { mtgPost } from '@/api/mtgApi'
 import useNotify from '@/composables/useNotify'
+import useRedirect from '@/composables/useRedirect'
+import { COOKIE_TOKEN_KEY } from '@/config/cookieTokenKey'
 import { useMutation } from '@tanstack/vue-query'
 import { Cookies } from 'quasar'
 
@@ -12,35 +14,30 @@ type ResponseToken = {
   token: string
 }
 
-const cookieTokenKey = 'jwt'
-
-function useLoginQuery(onSuccess: () => void) {
+function useLoginQuery() {
   const { notifyWelcome, notifyError } = useNotify()
+  const { redirectToDashboard } = useRedirect()
 
-  function postLogin(user: User) {
-    return mtgPost<ResponseToken>('/authorization/login', user)
-  }
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (user: User) => postLogin(user),
-    onSuccess: (data) => {
+  async function postLogin(user: User) {
+    try {
+      const data = await mtgPost<ResponseToken>('/authorization/login', user)
       if (data?.token) {
-        Cookies.set(cookieTokenKey, data.token, { expires: 7 })
+        Cookies.set(COOKIE_TOKEN_KEY, data.token, { expires: 7 })
 
         notifyWelcome('Welcome to the dungeon, Master!')
-        onSuccess()
+        redirectToDashboard()
+      } else {
+        notifyError('Login failed')
       }
-    },
-    onError: () => {
+      return data
+    } catch (error) {
       notifyError('Login failed')
-    },
-  })
-
-  function login(user: User) {
-    mutate(user)
+    }
   }
 
-  return { login, isLoading }
+  return useMutation({
+    mutationFn: postLogin,
+  })
 }
 
-export { cookieTokenKey, useLoginQuery }
+export default useLoginQuery
