@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import useSearchQuery from '@/queries/useSearchQuery'
+import useCardSearch from './useCardSearch'
 
 type Props = {
   inputClass?: string
@@ -24,7 +24,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { cardSearch } = useSearchQuery()
+const { cardSearch } = useCardSearch()
 
 function resetSearch() {
   cardSearch.value = ''

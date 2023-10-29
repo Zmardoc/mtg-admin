@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import CardButton from '@/components/general/CardButton.vue'
+import CardButton from './CardButton.vue'
 
 type Props = {
   inCollection: number

@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
+import { DrawerMenu } from '@/components/DrawerMenu'
 import MainHeader from '@/components/MainHeader.vue'
 import useApplicationStore from '@/stores/applicationStore'
-import DrawerMenu from '@/components/menu/DrawerMenu.vue'
 
 const { toggleDrawer } = useApplicationStore()
 </script>

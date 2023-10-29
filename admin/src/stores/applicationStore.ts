@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-const useApplicationStore = defineStore('application', {
-  state: () => ({
-    drawer: false,
-  }),
-  actions: {
-    setDrawer(open: boolean) {
-      this.drawer = open
-    },
-    toggleDrawer() {
-      this.drawer = !this.drawer
-    },
-  },
+const useApplicationStore = defineStore('application', () => {
+  const drawer = ref(false)
+
+  function setDrawer(open: boolean) {
+    drawer.value = open
+  }
+  function toggleDrawer() {
+    drawer.value = !drawer.value
+  }
+
+  return { drawer, setDrawer, toggleDrawer }
 })
 
 export default useApplicationStore

@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login/:logout?/:cardSearch?',
+    path: '/login/:cardSearch?',
     name: 'login',
     props: true,
     component: () => import('pages/LoginPage.vue'),
