@@ -12,29 +12,17 @@
 <script setup lang="ts">
 import MainHeader from '@/components/MainHeader.vue'
 import { Cookies } from 'quasar'
-import useNotify from '@/composables/useNotify'
 import queryClient from '@/config/query'
 import useApplicationStore from '@/stores/applicationStore'
 import { COOKIE_TOKEN_KEY } from '@/config/cookieTokenKey'
 import { LoginForm } from '@/components/LoginForm'
 
-type Props = {
-  logout?: string
-}
-
-const props = defineProps<Props>()
-
-const { notifyWelcome } = useNotify()
 const { setDrawer } = useApplicationStore()
-
+//TODO create logout util feature somehow
 function resetApp() {
   setDrawer(false)
   Cookies.remove(COOKIE_TOKEN_KEY)
-  queryClient.clear() // TODO flush all pinia storage
-}
-
-if (props.logout) {
-  notifyWelcome('See ya!')
+  queryClient.clear()
 }
 resetApp()
 </script>

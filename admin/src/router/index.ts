@@ -37,6 +37,7 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeResolve(async (to, from, next) => {
     //TODO tohle je nahovno pac kdyz to dostane 40x tak se to redirectuje pred nextem
+    //TODO na be vracet v logincheck vzdy 200 jen navratova hodnota bude true false
     if (to.name !== 'login') {
       try {
         await mtgGet('/authorization/login-check')
@@ -44,7 +45,7 @@ export default route(function (/* { store, ssrContext } */) {
       } catch (e) {
         next({
           name: 'login',
-          params: { logout: 'logout', cardSearch: to.params.cardSearch },
+          params: { cardSearch: to.params.cardSearch },
         })
       }
     } else {

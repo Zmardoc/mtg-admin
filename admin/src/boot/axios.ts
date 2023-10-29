@@ -23,7 +23,6 @@ export default boot(({ router }) => {
         router.push({
           name: 'login',
           params: {
-            logout: 'logout',
             cardSearch: router.currentRoute.value.params.cardSearch,
           },
         })
