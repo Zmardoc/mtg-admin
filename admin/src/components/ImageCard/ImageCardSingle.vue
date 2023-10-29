@@ -13,18 +13,21 @@
           :oracle-text="props.cardFace.oracleText ?? ''"
         />
       </template>
+      <card-price :prices="props.prices" />
     </q-img>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { CardFace } from '@/queries/useSearchQuery'
+import type { CardFace, CardPrices } from '@/queries/useSearchQuery'
 import CollectionNumber from './CollectionNumber.vue'
 import EmptyCard from './EmptyCard.vue'
+import CardPrice from './CardPrice.vue'
 
 type Props = {
   cardFace: CardFace
   inCollection: number
+  prices: CardPrices
 }
 
 const props = defineProps<Props>()
@@ -37,4 +40,3 @@ const props = defineProps<Props>()
   border-radius: 12px;
 }
 </style>
-@/queries/useSearch

@@ -1,7 +1,7 @@
 import sryfallBase from './sryfallBase'
 
 import type { AxiosResponse } from 'axios'
-import type { ScryfallCard, ScryfallCardSearchResponse } from './sryfallSearchTypes'
+import type { ScryfallCard, ScryfallCardSearchResponse, CardPrices } from './sryfallSearchTypes'
 import type { ErrorResponse } from '../types'
 
 type CardFace = {
@@ -14,6 +14,7 @@ type ApiCard = {
   id: string
   cardFaces: CardFace[]
   inCollection: number
+  prices: CardPrices
 }
 
 type ScryfallResponse = ScryfallCardSearchResponse | ErrorResponse
@@ -42,6 +43,7 @@ function convertToApi(cards: ScryfallCard[]): ApiCard[] {
     id: card.id,
     cardFaces: convertToCardFaces(card),
     inCollection: 0,
+    prices: card.prices,
   }))
 }
 

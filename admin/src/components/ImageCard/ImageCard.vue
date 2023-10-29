@@ -30,12 +30,14 @@
         <image-card-single
           :card-face="frontCard"
           :in-collection="props.card.inCollection"
+          :prices="props.card.prices"
           class="image-card__face image-card__face--front"
         />
         <image-card-single
           v-if="hasDualFace"
           :card-face="backCard"
           :in-collection="props.card.inCollection"
+          :prices="props.card.prices"
           class="image-card__face image-card__face--back"
         />
       </div>

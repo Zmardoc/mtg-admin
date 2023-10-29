@@ -67,7 +67,7 @@ type ScryfallCard = {
   story_spotlight: boolean
   edhrec_rank?: number
   penny_rank?: number
-  prices: Prices
+  prices: CardPrices
   related_uris: RelatedUris
   purchase_uris: PurchaseUris
   tcgplayer_etched_id?: number
@@ -138,13 +138,13 @@ type Legalities = {
   predh: string
 }
 
-type Prices = {
+type CardPrices = {
   usd: string
-  usd_foil?: string
-  usd_etched?: string
+  usd_foil: string | null
+  usd_etched: string | null
   eur: string
-  eur_foil?: string
-  tix?: string
+  eur_foil: string | null
+  tix: string | null
 }
 
 type RelatedUris = {
@@ -166,4 +166,4 @@ type Preview = {
   previewed_at: string
 }
 
-export type { ScryfallCardSearchResponse, ScryfallCard }
+export type { ScryfallCardSearchResponse, ScryfallCard, CardPrices }
