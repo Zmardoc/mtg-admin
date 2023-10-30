@@ -13,7 +13,6 @@
         />
       </div>
       <dashboard-text v-else-if="cardSearch" text="CAN'T FIND ANY CARD" />
-      <input-search v-else input-class="text-left" class="input-search gt-xs" />
     </template>
     <dashboard-text v-else text="LOADING..." />
   </div>
@@ -21,7 +20,7 @@
 
 <script setup lang="ts">
 import DashboardText from './DashboardText.vue'
-import { InputSearch, useCardSearch } from '@/components/InputSearch'
+import { useCardSearch } from '@/components/InputSearch'
 import { computed } from 'vue'
 import { ImageCard } from '../ImageCard'
 import useSearchQuery from '@/queries/useSearchQuery'
@@ -37,9 +36,5 @@ $container-padding: 8px;
 
 .card-dashboard {
   max-width: ($card-width + $container-padding) * 6;
-}
-
-.input-search {
-  width: 400px;
 }
 </style>

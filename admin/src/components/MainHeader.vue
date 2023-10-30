@@ -10,9 +10,10 @@
       </q-toolbar-title>
 
       <input-search
-        v-show="!props.emptyHeader && (cardSearch || screen.lt.sm)"
+        v-if="!props.emptyHeader"
         input-class="text-left"
         class="input-search"
+        :class="{ 'input-search__center': !cardSearch && screen.gt.sm }"
       />
     </q-toolbar>
   </q-header>
@@ -36,6 +37,10 @@ const { screen } = useQuasar()
 .input-search {
   width: 100%;
   max-width: 375px;
+
+  &__center {
+    position: absolute;
+    width: 400px;
+  }
 }
 </style>
-@/queries/useSearch
