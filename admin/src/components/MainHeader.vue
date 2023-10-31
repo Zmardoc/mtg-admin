@@ -39,7 +39,12 @@ const { screen } = useQuasar()
   max-width: 375px;
 
   &__center {
-    position: absolute;
+    position: fixed;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     width: 400px;
   }
 }

@@ -30,7 +30,7 @@ async function searchCards(cardTitle: string) {
 
   return (await mtgGet<ApiCard[]>(`/card/search?q=${cardTitle}`)) ?? []
 }
-// TODO rozdelit query a composable
+
 function useSearchQuery() {
   const { cardSearch } = useCardSearch()
 
