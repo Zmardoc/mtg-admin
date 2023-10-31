@@ -13,6 +13,7 @@ const path = require('node:path')
 
 module.exports = configure(function (/* ctx */) {
   return {
+    supportTS: true,
     eslint: {
       // fix: true,
       // include: [],
