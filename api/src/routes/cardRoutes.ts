@@ -27,7 +27,7 @@ router.get(
   '/search',
   authenticateToken,
   query('q').isString(),
-  async (req: RequestQuery<SearchQuery>, res: Response) => {
+  (req: RequestQuery<SearchQuery>, res: Response) => {
     /*#swagger.tags = ['Cards search']
       #swagger.parameters['q'] = {
         schema: {
@@ -38,7 +38,7 @@ router.get(
   },
 )
 
-router.post('/upsert', authenticateToken, async (req: Request, res: Response<Card>) => {
+router.post('/upsert', authenticateToken, (req: Request, res: Response<Card>) => {
   /*#swagger.tags = ['Cards']
     #swagger.parameters['card'] = {
       in: 'body',
@@ -52,7 +52,7 @@ router.post('/upsert', authenticateToken, async (req: Request, res: Response<Car
 router.delete(
   '/',
   [authenticateToken, query('name').isString()],
-  async (req: RequestQuery<DeleteQuery>, res: Response) => {
+  (req: RequestQuery<DeleteQuery>, res: Response) => {
     /*#swagger.tags = ['Cards remove from collection']
       #swagger.parameters['name'] = {
         schema: {

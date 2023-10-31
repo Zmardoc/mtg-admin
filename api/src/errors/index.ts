@@ -31,23 +31,23 @@ const missingSecretEnv: ErrorResponse = {
   details: 'Env secret key missing',
 }
 
-function getUnknownError(res: Response, error: unknown) {
+function setUnknownError(res: Response, error: unknown) {
   const unknownError: ErrorResponse = {
     status: 500,
     code: 'UNKNOWN_ERROR',
     details: 'Unknown error',
     stack: error,
   }
-  return getError(res, unknownError)
+  setError(res, unknownError)
 }
 
-function getError(res: Response, error: ErrorResponse) {
-  return res.status(error.status).json(error)
+function setError(res: Response, error: ErrorResponse) {
+  res.status(error.status).json(error)
 }
 
 export {
-  getError,
-  getUnknownError,
+  setError,
+  setUnknownError,
   missingSecretEnv,
   loginFailed,
   userAlreadyExists,

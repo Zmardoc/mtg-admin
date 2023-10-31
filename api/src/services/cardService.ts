@@ -4,7 +4,7 @@ import { type Request, type Response } from 'express'
 import cardSearch, { type ApiCard } from '../api/scryfall/cardSearch'
 import { type Card, findCard, insertCard, updateCard } from '../database/cards'
 import { ErrorResponse } from '../api/types'
-import { getUnknownError } from '../errors'
+import { setUnknownError } from '../errors'
 
 type RequestQuery<T> = Request<
   Record<string, never>,
@@ -54,7 +54,7 @@ async function searchCards(req: RequestQuery<SearchQuery>, res: Response) {
 
       res.send(apiResponse ?? [])
     } catch (error) {
-      return getUnknownError(res, error)
+      setUnknownError(res, error)
     }
   } else {
     res.send(response)

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { secretKey } from './config/configEnv'
-import { getError, missingSecretEnv, notLoggedIn, tokenMissing } from './errors'
+import { setError, missingSecretEnv, notLoggedIn, tokenMissing } from './errors'
 
 type LoggedUser = {
   id: string
@@ -12,10 +12,16 @@ type LoggedUser = {
 
 function authenticateToken(req: Request, res: Response, next: NextFunction) {
   try {
-    if (!secretKey) return getError(res, missingSecretEnv)
+    if (!secretKey) {
+      setError(res, missingSecretEnv)
+      return
+    }
 
     const token = req.headers.authorization?.replace('Bearer ', '')
-    if (!token) return getError(res, tokenMissing)
+    if (!token) {
+      setError(res, tokenMissing)
+      return
+    }
 
     const decoded = jwt.verify(token, secretKey)
 
@@ -23,7 +29,7 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
 
     next()
   } catch (err) {
-    return getError(res, notLoggedIn)
+    setError(res, notLoggedIn)
   }
 }
 
