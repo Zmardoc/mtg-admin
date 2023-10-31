@@ -20,7 +20,8 @@ type CardPrices = {
 
 type ApiCard = {
   id: string
-  cardFaces: CardFace[]
+  frontFace: CardFace
+  backFace: CardFace | null
   inCollection: number
   prices: CardPrices
 }

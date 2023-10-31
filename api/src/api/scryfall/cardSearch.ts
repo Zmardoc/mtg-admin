@@ -12,7 +12,8 @@ type CardFace = {
 
 type ApiCard = {
   id: string
-  cardFaces: CardFace[]
+  frontFace: CardFace
+  backFace: CardFace | null
   inCollection: number
   prices: CardPrices
 }
@@ -21,27 +22,37 @@ type ScryfallResponse = ScryfallCardSearchResponse | ErrorResponse
 type ScryfallAxiosResponse = AxiosResponse<ScryfallResponse, unknown>
 type ScryfallSuccessAxiosResponse = AxiosResponse<ScryfallCardSearchResponse, unknown>
 
-function convertToCardFaces(card: ScryfallCard): CardFace[] {
+function getFrontFace(card: ScryfallCard): CardFace {
   if (card.card_faces && !card.image_uris) {
-    return card.card_faces.map((cardFace) => ({
-      name: cardFace.name,
-      imageUrl: cardFace.image_uris?.normal ?? null,
-      oracleText: cardFace.oracle_text ?? null,
-    }))
+    return {
+      name: card.card_faces[0].name,
+      imageUrl: card.card_faces[0].image_uris?.normal ?? null,
+      oracleText: card.card_faces[0].oracle_text ?? null,
+    }
   }
 
-  const cardFace: CardFace = {
+  return {
     name: card.name,
     imageUrl: card.image_uris?.normal ?? null,
     oracleText: card.oracle_text ?? null,
   }
-  return [cardFace]
+}
+
+function getBackFace(card: ScryfallCard): CardFace | null {
+  if (!(card.card_faces && !card.image_uris)) return null
+
+  return {
+    name: card.card_faces[1].name,
+    imageUrl: card.card_faces[1].image_uris?.normal ?? null,
+    oracleText: card.card_faces[1].oracle_text ?? null,
+  }
 }
 
 function convertToApi(cards: ScryfallCard[]): ApiCard[] {
   return cards.map((card) => ({
     id: card.id,
-    cardFaces: convertToCardFaces(card),
+    frontFace: getFrontFace(card),
+    backFace: getBackFace(card),
     inCollection: 0,
     prices: card.prices,
   }))

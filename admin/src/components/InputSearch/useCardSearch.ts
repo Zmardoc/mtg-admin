@@ -7,7 +7,7 @@ import type { CollectionCard } from '.'
 
 function getUpdatedSearch(newCard: CollectionCard, oldData?: ApiCard[]) {
   return oldData?.map((card) => {
-    if (card.cardFaces[0].name === newCard.name) {
+    if (card.frontFace.name === newCard.name) {
       return {
         ...card,
         inCollection: newCard.inCollection,

@@ -44,7 +44,7 @@ async function searchCards(req: RequestQuery<SearchQuery>, res: Response) {
         response.map(async (card) => {
           if (!req.user?.id) return card
 
-          const foundCard = await findCard(card.cardFaces[0].name, req.user.id)
+          const foundCard = await findCard(card.frontFace.name, req.user.id)
           return {
             ...card,
             inCollection: foundCard?.inCollection ?? 0,

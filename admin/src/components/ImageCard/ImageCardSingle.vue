@@ -23,7 +23,7 @@ import type { CardFace, CardPrices } from '@/queries/useSearchQuery'
 import CollectionNumber from './CollectionNumber.vue'
 import EmptyCard from './EmptyCard.vue'
 import CardPrice from './CardPrice.vue'
-
+//TODO posilat jen cardFace
 type Props = {
   cardFace: CardFace
   inCollection: number

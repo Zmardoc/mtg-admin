@@ -1,8 +1,8 @@
 <template>
   <div class="image-card-scene">
     <card-menu
-      @add="addCard(frontCard.name)"
-      @remove="deleteCard(frontCard.name)"
+      @add="addCard(props.card.frontFace.name)"
+      @remove="deleteCard(props.card.frontFace.name)"
       @flip="flipCard"
       :showFlip="hasDualFace"
       :inCollection="props.card.inCollection"
@@ -28,14 +28,14 @@
         }"
       >
         <image-card-single
-          :card-face="frontCard"
+          :card-face="props.card.frontFace"
           :in-collection="props.card.inCollection"
           :prices="props.card.prices"
           class="image-card__face image-card__face--front"
         />
         <image-card-single
-          v-if="hasDualFace"
-          :card-face="backCard"
+          v-if="props.card.backFace"
+          :card-face="props.card.backFace"
           :in-collection="props.card.inCollection"
           :prices="props.card.prices"
           class="image-card__face image-card__face--back"
@@ -64,16 +64,13 @@ const { mutate: deleteCard } = useDeleteCardQuery()
 
 const props = defineProps<Props>()
 const flipped = ref(false)
-const hasDualFace = computed(() => props.card.cardFaces.length === 2)
+const hasDualFace = computed(() => !!props.card.backFace)
 
 function flipCard() {
-  if (hasDualFace.value) {
+  if (props.card.backFace) {
     flipped.value = !flipped.value
   }
 }
-// TODO maybe send frontFace and back face instead of an array
-const frontCard = computed(() => props.card.cardFaces[0])
-const backCard = computed(() => props.card.cardFaces[1])
 </script>
 
 <style lang="scss" scoped>
