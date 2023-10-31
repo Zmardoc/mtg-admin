@@ -1,13 +1,13 @@
 <template>
   <div class="card-price text-center mtg-font-bold text-subtitle">
-    {{ eur }}
+    {{ priceLabel }}
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import formatEur from '@/utils/priceFormat'
+import formatCzk from '@/utils/priceFormat'
 import type { CardPrices } from '@/queries/useSearchQuery'
 
 type Props = {
@@ -15,9 +15,13 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-const eur = computed(() => {
+
+const EXCHANGE_RATE = 24.5
+
+const priceLabel = computed(() => {
   if (props.prices.eur) {
-    return formatEur(parseFloat(props.prices.eur))
+    const czkNumber = parseFloat(props.prices.eur) * EXCHANGE_RATE
+    return formatCzk(czkNumber)
   }
   return 'N/A'
 })

@@ -1,11 +1,11 @@
-function formatEur(price: number) {
-  const formatter = new Intl.NumberFormat('cs-CZ', {
+function formatCzk(price: number) {
+  const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'CZK',
     maximumFractionDigits: 2,
   })
 
   return formatter.format(price)
 }
 
-export default formatEur
+export default formatCzk

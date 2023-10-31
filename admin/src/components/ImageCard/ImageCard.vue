@@ -144,4 +144,3 @@ const backCard = computed(() => props.card.cardFaces[1])
   opacity: 0.4;
 }
 </style>
-@/queries/useSearch
