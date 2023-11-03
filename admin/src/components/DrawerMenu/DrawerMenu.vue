@@ -9,7 +9,7 @@
           path-name="login"
           :to="{
             name: 'login',
-            params: { cardSearch: route.params.cardSearch },
+            query: { cardSearch: route.query.cardSearch },
           }"
         />
       </q-list>

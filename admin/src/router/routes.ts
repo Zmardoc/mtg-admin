@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     redirect: '/search',
     children: [
       {
-        path: '/search/:cardSearch?',
+        path: '/search',
         name: 'index',
         props: true,
         component: () => import('pages/IndexPage.vue'),
@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login/:cardSearch?',
+    path: '/login',
     name: 'login',
     props: true,
     component: () => import('pages/LoginPage.vue'),

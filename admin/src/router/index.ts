@@ -45,7 +45,7 @@ export default route(function (/* { store, ssrContext } */) {
       } catch (e) {
         next({
           name: 'login',
-          params: { cardSearch: to.params.cardSearch },
+          query: { cardSearch: to.query.cardSearch },
         })
       }
     } else {

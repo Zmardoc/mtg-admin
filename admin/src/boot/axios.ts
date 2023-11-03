@@ -22,8 +22,8 @@ export default boot(({ router }) => {
       if ([401, 403].includes(error.response.status)) {
         router.push({
           name: 'login',
-          params: {
-            cardSearch: router.currentRoute.value.params.cardSearch,
+          query: {
+            cardSearch: router.currentRoute.value.query.cardSearch,
           },
         })
       }

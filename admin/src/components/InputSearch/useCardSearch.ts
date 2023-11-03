@@ -22,9 +22,9 @@ function useCardSearch() {
   const route = useRoute()
 
   const cardSearch = computed({
-    get: () => (route.params.cardSearch as string | undefined) ?? '',
+    get: () => (route.query.cardSearch as string | undefined) ?? '',
     set: (value) => {
-      router.push({ name: 'index', params: { cardSearch: value } })
+      router.push({ name: 'index', query: { cardSearch: value } })
     },
   })
 
