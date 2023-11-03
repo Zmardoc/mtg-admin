@@ -23,7 +23,7 @@ export default boot(({ router }) => {
         router.push({
           name: 'login',
           query: {
-            cardSearch: router.currentRoute.value.query.cardSearch,
+            query: router.currentRoute.value.query.query,
           },
         })
       }

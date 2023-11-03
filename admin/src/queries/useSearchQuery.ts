@@ -33,15 +33,11 @@ async function searchCards(cardTitle: string) {
 }
 
 function useSearchQuery() {
-  const { cardSearch } = useCardSearch()
+  const { query } = useCardSearch()
 
-  return useQuery(
-    queryKeys.search(cardSearch),
-    () => searchCards(cardSearch.value),
-    {
-      retry: false,
-    }
-  )
+  return useQuery(queryKeys.search(query), () => searchCards(query.value), {
+    retry: false,
+  })
 }
 
 export default useSearchQuery

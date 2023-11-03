@@ -13,7 +13,7 @@
         v-if="!props.emptyHeader"
         input-class="text-left"
         class="input-search"
-        :class="{ 'input-search__center': !cardSearch && screen.gt.sm }"
+        :class="{ 'input-search__center': !query && screen.gt.sm }"
       />
     </q-toolbar>
   </q-header>
@@ -29,7 +29,7 @@ type Props = {
 const props = defineProps<Props>()
 const emits = defineEmits<(event: 'toggleLeftDrawer') => void>()
 
-const { cardSearch } = useCardSearch()
+const { query } = useCardSearch()
 const { screen } = useQuasar()
 </script>
 

@@ -6,7 +6,7 @@ function useRedirect() {
   function redirectToDashboard() {
     replace({
       name: 'index',
-      query: { cardSearch: currentRoute.value.query.cardSearch },
+      query: { query: currentRoute.value.query.query },
     })
   }
 

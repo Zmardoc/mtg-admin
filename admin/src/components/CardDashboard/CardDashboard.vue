@@ -12,7 +12,7 @@
           class="q-ma-xs"
         />
       </div>
-      <dashboard-text v-else-if="cardSearch" text="CAN'T FIND ANY CARD" />
+      <dashboard-text v-else-if="query" text="CAN'T FIND ANY CARD" />
     </template>
     <dashboard-text v-else text="LOADING..." />
   </div>
@@ -25,7 +25,7 @@ import { computed } from 'vue'
 import { ImageCard } from '../ImageCard'
 import useSearchQuery from '@/queries/useSearchQuery'
 
-const { cardSearch } = useCardSearch()
+const { query } = useCardSearch()
 const { data, isFetching } = useSearchQuery()
 
 const cards = computed(() => data.value ?? [])

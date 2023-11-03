@@ -21,16 +21,20 @@ function useCardSearch() {
   const router = useRouter()
   const route = useRoute()
 
-  const cardSearch = computed({
-    get: () => (route.query.cardSearch as string | undefined) ?? '',
+  const query = computed({
+    get: () =>
+      decodeURIComponent((route.query.query as string | undefined) ?? ''),
     set: (value) => {
-      router.push({ name: 'index', query: { cardSearch: value } })
+      router.push({
+        name: 'index',
+        query: { query: encodeURIComponent(value) },
+      })
     },
   })
 
   // Update on data change basically
   function updateSearch(collectionCard: CollectionCard) {
-    const searchKey = queryKeys.search(cardSearch)
+    const searchKey = queryKeys.search(query)
 
     queryClient.setQueryData(searchKey, (oldData?: ApiCard[]) =>
       getUpdatedSearch(collectionCard, oldData)
@@ -38,7 +42,7 @@ function useCardSearch() {
   }
 
   return {
-    cardSearch,
+    query,
     updateSearch,
   }
 }

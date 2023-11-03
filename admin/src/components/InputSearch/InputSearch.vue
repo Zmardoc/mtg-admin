@@ -3,13 +3,13 @@
     dense
     standout
     placeholder="Search cards..."
-    v-model="cardSearch"
+    v-model="query"
     :input-class="props.inputClass"
     debounce="500"
     @focus="(input) => ((input.target as HTMLInputElement)?.select?.())"
   >
     <template #append>
-      <q-icon v-if="!cardSearch" name="search" dark />
+      <q-icon v-if="!query" name="search" dark />
       <q-icon v-else name="clear" class="cursor-pointer" @click="resetSearch" />
     </template>
   </q-input>
@@ -24,9 +24,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { cardSearch } = useCardSearch()
+const { query } = useCardSearch()
 
 function resetSearch() {
-  cardSearch.value = ''
+  query.value = ''
 }
 </script>
