@@ -7,9 +7,11 @@
       <template v-if="scannerWindow">
         <q-btn
           class="close-btn"
-          color="black"
+          color="primary"
           round
-          icon="close"
+          flat
+          icon="arrow_back_ios"
+          size="xl"
           @click="scannerWindow = false"
         />
         <ScannerWindow />
@@ -30,7 +32,7 @@ const scannerWindow = ref(true)
 .close-btn {
   z-index: 2002;
   position: fixed;
-  top: 16px;
-  right: 16px;
+  bottom: 32px;
+  left: 60px;
 }
 </style>

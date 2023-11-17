@@ -11,13 +11,13 @@
       class="photo-btn"
     />
     <div class="scanned-text text-white">
-      {{ scannerStore.scannedTexts.join(', ') }}
+      {{ scanned }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
 import beep from '@/assets/audio/beep.mp3'
 import useOcrQuery from '@/queries/useOcrQuery'
 import useScannerStore from '@/stores/scannerStore'
@@ -27,7 +27,7 @@ let videoStream: MediaStream | null = null
 const videoRef = ref<HTMLVideoElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
-const isMobile = navigator.userAgent.match(/(android|iphone|ipad)/i)
+const isMobile = /(android|iphone|ipad)/i.test(navigator.userAgent) // opravit nefunguje desktop
 
 const { mutateAsync } = useOcrQuery()
 const scannerStore = useScannerStore()
@@ -36,6 +36,11 @@ const constraints = {
   audio: false,
   video: isMobile ? { facingMode: { exact: 'environment' } } : true,
 }
+
+const scanned = computed(() => {
+  console.log(scannerStore.scannedCards)
+  return scannerStore.scannedCards.map((card) => card.frontFace.name).join(', ')
+})
 
 function startCamera() {
   navigator.mediaDevices
@@ -132,7 +137,7 @@ onUnmounted(() => {
 .photo-btn {
   z-index: 2002;
   position: fixed;
-  bottom: 16px;
+  bottom: 32px;
   margin: auto;
 }
 
