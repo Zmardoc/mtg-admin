@@ -56,6 +56,8 @@ Admin web for commander decks and card collection
 
 ```
 MTG_API=http://192.168.1.19:8000
+OCR_API=https://api.ocr.space/
+OCR_API_KEY=whatever
 ```
 
 2. Instal packages

@@ -3,6 +3,23 @@
     <q-scroll-area class="fit">
       <q-list>
         <q-space />
+
+        <menu-item
+          icon="home"
+          label="Home"
+          :to="{
+            name: 'index',
+          }"
+          @click="drawerOpen = false"
+        />
+        <menu-item
+          icon="photo_camera"
+          label="Scanner"
+          :to="{
+            name: 'scanner',
+          }"
+          @click="drawerOpen = false"
+        />
         <menu-item
           icon="logout"
           label="Logout"

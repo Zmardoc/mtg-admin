@@ -69,6 +69,8 @@ module.exports = configure(function (/* ctx */) {
       // analyze: true,
       env: {
         MTG_API: process.env.MTG_API,
+        OCR_API: process.env.OCR_API,
+        OCR_API_KEY: process.env.OCR_API_KEY,
       },
       // rawDefine: {}
       // ignorePublicFolder: true,

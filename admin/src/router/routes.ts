@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/scanner',
+    name: 'scanner',
+    component: () => import('pages/ScannerPage.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     props: true,

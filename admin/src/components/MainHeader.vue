@@ -10,7 +10,7 @@
       </q-toolbar-title>
 
       <input-search
-        v-if="!props.emptyHeader"
+        v-if="!props.emptyHeader && !props.hideSearch"
         input-class="text-left"
         class="input-search"
         :class="{ 'input-search__center': !query && screen.gt.sm }"
@@ -25,6 +25,7 @@ import { useCardSearch, InputSearch } from './InputSearch'
 
 type Props = {
   emptyHeader?: boolean
+  hideSearch?: boolean
 }
 const props = defineProps<Props>()
 const emits = defineEmits<(event: 'toggleLeftDrawer') => void>()
