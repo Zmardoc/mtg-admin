@@ -27,7 +27,6 @@ const props = defineProps<Props>()
   border: 10px solid black;
   border-radius: 12px;
   height: 100%;
-  width: $card-width;
   padding: 4px;
 
   &__header,
