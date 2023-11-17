@@ -35,7 +35,6 @@ const props = defineProps<Props>()
 
 <style scoped lang="scss">
 .image-card-single {
-  width: $card-width;
   height: 100%;
   border-radius: 12px;
 }

@@ -1,20 +1,26 @@
 <template>
   <q-header class="bg-black text-white">
     <q-toolbar>
-      <q-btn v-if="!props.emptyHeader" round @click="emits('toggleLeftDrawer')">
-        <img src="~assets/logo.png" height="38" width="38" alt="logo" />
-      </q-btn>
-      <img v-else src="~assets/logo.png" height="38" width="38" alt="logo" />
-      <q-toolbar-title>
-        <div class="mtg-font-bold gt-xs">MTG Collector</div>
-      </q-toolbar-title>
+      <page-wrapper class="flex items-center">
+        <q-btn
+          v-if="!props.emptyHeader"
+          round
+          @click="emits('toggleLeftDrawer')"
+        >
+          <img src="~assets/logo.png" height="38" width="38" alt="logo" />
+        </q-btn>
+        <img v-else src="~assets/logo.png" height="38" width="38" alt="logo" />
+        <q-toolbar-title>
+          <div class="mtg-font-bold gt-xs">MTG Collector</div>
+        </q-toolbar-title>
 
-      <input-search
-        v-if="!props.emptyHeader"
-        input-class="text-left"
-        class="input-search"
-        :class="{ 'input-search__center': !query && screen.gt.sm }"
-      />
+        <input-search
+          v-if="!props.emptyHeader"
+          input-class="text-left"
+          class="input-search"
+          :class="{ 'input-search__center': !query && screen.gt.sm }"
+        />
+      </page-wrapper>
     </q-toolbar>
   </q-header>
 </template>
@@ -22,6 +28,7 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
 import { useCardSearch, InputSearch } from './InputSearch'
+import PageWrapper from '@/layouts/PageWrapper.vue'
 
 type Props = {
   emptyHeader?: boolean

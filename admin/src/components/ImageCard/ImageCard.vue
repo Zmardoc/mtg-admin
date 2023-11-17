@@ -1,6 +1,6 @@
 <template>
   <div class="image-card-scene">
-    <card-menu
+    <!--  <card-menu
       @add="addCard(props.card.frontFace.name)"
       @remove="deleteCard(props.card.frontFace.name)"
       @flip="flipCard"
@@ -13,35 +13,35 @@
       icon="auto_stories"
       class="image-card-scene__flip absolute"
       @click="flipCard"
-    />
-    <div
+    /> -->
+    <!-- <div
       class="full-width full-height"
       :class="{
         'image-card-container--not-in-collection':
           props.card.inCollection === 0,
       }"
+    > -->
+    <div
+      class="image-card"
+      :class="{
+        'image-card--is-flipped': flipped,
+      }"
     >
-      <div
-        class="image-card"
-        :class="{
-          'image-card--is-flipped': flipped,
-        }"
-      >
-        <image-card-single
-          :card-face="props.card.frontFace"
-          :in-collection="props.card.inCollection"
-          :prices="props.card.prices"
-          class="image-card__face image-card__face--front"
-        />
-        <image-card-single
-          v-if="props.card.backFace"
-          :card-face="props.card.backFace"
-          :in-collection="props.card.inCollection"
-          :prices="props.card.prices"
-          class="image-card__face image-card__face--back"
-        />
-      </div>
+      <image-card-single
+        :card-face="props.card.frontFace"
+        :in-collection="props.card.inCollection"
+        :prices="props.card.prices"
+        class="image-card__face image-card__face--front"
+      />
+      <image-card-single
+        v-if="props.card.backFace"
+        :card-face="props.card.backFace"
+        :in-collection="props.card.inCollection"
+        :prices="props.card.prices"
+        class="image-card__face image-card__face--back"
+      />
     </div>
+    <!-- </div> -->
 
     <div class="image-card-scene__hover" />
   </div>
@@ -77,8 +77,8 @@ function flipCard() {
 .image-card-scene {
   perspective: 2000px;
   /*TODO better sizing */
-  width: 245px;
-  height: 341.391px;
+  height: 0;
+  width: 100%;
   position: relative;
 
   &__menu {
@@ -118,7 +118,9 @@ function flipCard() {
   height: 100%;
   transition: transform 0.5s; //, opacity 0.7s
   transform-style: preserve-3d;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   &--is-flipped {
     transform: rotateY(180deg);

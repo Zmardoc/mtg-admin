@@ -1,16 +1,10 @@
 <template>
-  <div class="flex flex-center full-width">
+  <div class="full-width">
     <template v-if="!isFetching">
-      <div
-        v-if="cards.length"
-        class="card-dashboard flex justify-center q-py-xs"
-      >
-        <image-card
-          v-for="card in cards"
-          :key="card.id"
-          :card="card"
-          class="q-ma-xs"
-        />
+      <div v-if="cards.length" class="card-dashboard q-py-xs row">
+        <div v-for="card in cards" :key="card.id" class="col-3">
+          <image-card :card="card" class="q-ma-xs" />
+        </div>
       </div>
       <dashboard-text v-else-if="query" text="CAN'T FIND ANY CARD" />
     </template>
@@ -35,6 +29,6 @@ const cards = computed(() => data.value ?? [])
 $container-padding: 8px;
 
 .card-dashboard {
-  max-width: ($card-width + $container-padding) * 6;
+  // max-width: ($card-width + $container-padding) * 6;
 }
 </style>
