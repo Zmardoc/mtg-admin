@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import ocrPost from '@/api/ocrApi'
 import { onUnmounted, ref } from 'vue'
+import beep from '@/assets/audio/beep.mp3'
 
 let videoStream: MediaStream | null = null
 
@@ -24,10 +25,11 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const scannedTexts = ref<string[]>([])
 
+const isMobile = navigator.userAgent.match(/(android|iphone|ipad)/i)
+
 const constraints = {
   audio: false,
-  video: { facingMode: { exact: 'environment' } }, // true on desktop
-  advanced: [{ facingMode: 'environment' }],
+  video: isMobile ? { facingMode: { exact: 'environment' } } : true,
 }
 
 function startCamera() {
@@ -80,8 +82,12 @@ async function takePhoto() {
       canvasRef.value.width,
       canvasRef.value.height
     )
-    const imageDataUrl = canvasRef.value.toDataURL('image/jpeg')
 
+    const audio = new Audio(beep)
+    audio.play()
+
+    const imageDataUrl = canvasRef.value.toDataURL('image/jpeg')
+    // audioPlayer.value?.play()
     //TODO do vue query
     const what = await ocrPost(
       'https://api.ocr.space/parse/image',
