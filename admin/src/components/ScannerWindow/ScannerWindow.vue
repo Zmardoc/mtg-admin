@@ -10,22 +10,27 @@
       icon="camera"
       class="photo-btn"
     />
-    <div class="scanned-text text-white">{{ scannedTexts.join(', ') }}</div>
+    <div class="scanned-text text-white">
+      {{ scannerStore.scannedTexts.join(', ') }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import ocrPost from '@/api/ocrApi'
 import { onUnmounted, ref } from 'vue'
 import beep from '@/assets/audio/beep.mp3'
+import useOcrQuery from '@/queries/useOcrQuery'
+import useScannerStore from '@/stores/scannerStore'
 
 let videoStream: MediaStream | null = null
 
 const videoRef = ref<HTMLVideoElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
-const scannedTexts = ref<string[]>([])
 
 const isMobile = navigator.userAgent.match(/(android|iphone|ipad)/i)
+
+const { mutateAsync } = useOcrQuery()
+const scannerStore = useScannerStore()
 
 const constraints = {
   audio: false,
@@ -44,10 +49,6 @@ function startCamera() {
     .catch((error) => {
       console.error('Nelze získat přístup k videu z kamery:', error)
     })
-}
-
-function addToScannedTexts(text: string) {
-  scannedTexts.value = [...new Set([...scannedTexts.value, text])]
 }
 
 function setupCanvas() {
@@ -86,18 +87,15 @@ async function takePhoto() {
     const audio = new Audio(beep)
     audio.play()
 
-    const imageDataUrl = canvasRef.value.toDataURL('image/jpeg')
-    // audioPlayer.value?.play()
-    //TODO do vue query
-    const what = await ocrPost(
-      'https://api.ocr.space/parse/image',
-      imageDataUrl
-    )
-    if (!what) {
+    const imageBase64 = canvasRef.value.toDataURL('image/jpeg')
+
+    const convertedText = await mutateAsync(imageBase64)
+
+    if (!convertedText) {
       console.error('Nelze získat text z obrázku.')
       return
     }
-    addToScannedTexts(what)
+    scannerStore.addToScannedTexts(convertedText)
   } catch (error) {
     alert(error)
   }
