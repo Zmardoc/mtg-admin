@@ -41,7 +41,7 @@ async function ocrPost(url: string, imageDataUrl: string) {
 
     const result = await fetchFilePost<ProcessedImage>(url, formData, ocrApi)
     return result.ParsedResults?.length
-      ? result.ParsedResults[0].ParsedText
+      ? result.ParsedResults[0].ParsedText.replace(/(\r\n|\n|\r)/gm, '')
       : null
   } catch (e) {
     console.error(e)
