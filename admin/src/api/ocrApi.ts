@@ -38,6 +38,7 @@ async function ocrPost(url: string, imageDataUrl: string) {
     const formData = new FormData()
     formData.append('base64image', imageDataUrl)
     formData.append('language', 'eng')
+    formData.append('detectOrientation', 'true')
 
     const result = await fetchFilePost<ProcessedImage>(url, formData, ocrApi)
     return result.ParsedResults?.length

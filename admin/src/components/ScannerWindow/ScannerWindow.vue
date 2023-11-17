@@ -5,17 +5,18 @@
     <q-btn
       @click="takePhoto"
       round
+      size="xl"
       color="primary"
       icon="camera"
       class="photo-btn"
     />
-    <div>{{ scannedTexts.join(', ') }}</div>
+    <div class="scanned-text text-white">{{ scannedTexts.join(', ') }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import ocrPost from '@/api/ocrApi'
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 let videoStream: MediaStream | null = null
 
@@ -25,7 +26,7 @@ const scannedTexts = ref<string[]>([])
 
 const constraints = {
   audio: false,
-  video: true,
+  video: { facingMode: { exact: 'environment' } }, // true on desktop
   advanced: [{ facingMode: 'environment' }],
 }
 
@@ -55,16 +56,11 @@ function setupCanvas() {
     const ctx = canvasRef.value.getContext('2d')
     if (ctx) {
       ctx.filter = 'grayscale(100%)'
-      ctx.drawImage(
-        videoRef.value,
-        0,
-        0,
-        canvasRef.value.width,
-        canvasRef.value.height
-      )
-    } else {
-      console.error('Nelze získat kontext pro kreslení na plátno.')
+      return ctx
     }
+
+    console.error('Nelze získat kontext pro kreslení na plátno.')
+    return null
   }
 }
 
@@ -73,19 +69,40 @@ async function takePhoto() {
     console.error('Video stream není dostupný.')
     return
   }
+  try {
+    const ctx = setupCanvas()
+    if (!ctx) return
 
-  const imageDataUrl = canvasRef.value.toDataURL('image/jpeg')
+    ctx.drawImage(
+      videoRef.value,
+      0,
+      0,
+      canvasRef.value.width,
+      canvasRef.value.height
+    )
+    const imageDataUrl = canvasRef.value.toDataURL('image/jpeg')
 
-  const what = await ocrPost('https://api.ocr.space/parse/image', imageDataUrl)
-  if (!what) {
-    console.error('Nelze získat text z obrázku.')
-    return
+    //TODO do vue query
+    const what = await ocrPost(
+      'https://api.ocr.space/parse/image',
+      imageDataUrl
+    )
+    if (!what) {
+      console.error('Nelze získat text z obrázku.')
+      return
+    }
+    addToScannedTexts(what)
+  } catch (error) {
+    alert(error)
   }
-  addToScannedTexts(what)
 }
-
-setupCanvas()
 startCamera()
+
+onUnmounted(() => {
+  if (videoStream) {
+    videoStream.getTracks().forEach((track) => track.stop())
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +117,7 @@ startCamera()
   align-items: center;
   overflow: hidden;
   z-index: 2001;
+  background-color: black;
 }
 .video-scanner {
   width: 100%;
@@ -112,5 +130,12 @@ startCamera()
   position: fixed;
   bottom: 16px;
   margin: auto;
+}
+
+.scanned-text {
+  z-index: 2002;
+  position: fixed;
+  top: 8px;
+  left: 8px;
 }
 </style>
