@@ -22,19 +22,20 @@ type DeleteQuery = {
 type SearchQuery = {
   q: string
 }
-
+// TODO better send acording to service result
 router.get(
   '/search',
   authenticateToken,
   query('q').isString(),
-  (req: RequestQuery<SearchQuery>, res: Response) => {
+  async (req: RequestQuery<SearchQuery>, res: Response) => {
     /*#swagger.tags = ['Cards search']
       #swagger.parameters['q'] = {
         schema: {
           $q: 'Counterspell'
         }
     } */
-    searchCards(req, res)
+    const result = await searchCards(req.query.q, req.user?.id)
+    res.send(result)
   },
 )
 

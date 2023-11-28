@@ -30,22 +30,4 @@ async function fetchPost<T>(url: string, data: unknown, axios = mtgApi) {
   }
 }
 
-async function fetchFilePost<T>(
-  url: string,
-  formData: FormData,
-  axios = mtgApi
-): Promise<T> {
-  try {
-    const response = await axios.post<T>(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    return response.data
-  } catch (e) {
-    console.error(e)
-    throw e
-  }
-}
-
-export { fetchGet, fetchDelete, fetchPost, fetchFilePost }
+export { fetchGet, fetchDelete, fetchPost }

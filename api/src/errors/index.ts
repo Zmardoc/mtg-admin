@@ -31,26 +31,47 @@ const missingSecretEnv: ErrorResponse = {
   details: 'Env secret key missing',
 }
 
-function setUnknownError(res: Response, error: unknown) {
-  const unknownError: ErrorResponse = {
+const missingOcrImage: ErrorResponse = {
+  status: 400,
+  code: 'MISSING_OCR_IMAGE',
+  details: 'Missing OCR image',
+}
+
+function getOcrError(error: unknown): ErrorResponse {
+  return {
+    status: 500,
+    code: 'ocr_server_error',
+    details: 'Something went wrong on my poor, poor server when calling ocr api.',
+    stack: error,
+  }
+}
+
+function getUnknownError(error: unknown): ErrorResponse {
+  return {
     status: 500,
     code: 'UNKNOWN_ERROR',
     details: 'Unknown error',
     stack: error,
   }
-  setError(res, unknownError)
 }
 
 function setError(res: Response, error: ErrorResponse) {
   res.status(error.status).json(error)
 }
 
+function isError(error: ErrorResponse | unknown): error is ErrorResponse {
+  return !!(typeof error === 'object' && error && 'status' in error)
+}
+
 export {
+  isError,
   setError,
-  setUnknownError,
+  getUnknownError,
+  getOcrError,
   missingSecretEnv,
   loginFailed,
   userAlreadyExists,
   tokenMissing,
   notLoggedIn,
+  missingOcrImage,
 }

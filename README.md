@@ -3,13 +3,15 @@
 ## Install project
 
 1. Create mongoDb
-2. Create .env file with `PORT`, `API`, `API_KEY`, `MONGO_DB`
+2. Create .env file with `PORT`, `API`, `API_KEY`, `MONGO_DB`, `OCR_API`,`OCR_API_KEY`
 
 ```
 PORT=8000
 API=http://192.168.1.19
 API_KEY=whatever
 MONGO_DB=mongodb://localhost:27017
+OCR_API=https://api.ocr.space/
+OCR_API_KEY=whatever
 ```
 
 3. Install packages
@@ -56,8 +58,6 @@ Admin web for commander decks and card collection
 
 ```
 MTG_API=http://192.168.1.19:8000
-OCR_API=https://api.ocr.space/
-OCR_API_KEY=whatever
 ```
 
 2. Instal packages

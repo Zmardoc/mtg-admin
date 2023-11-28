@@ -6,7 +6,10 @@ import cors from 'cors'
 import { openConnection } from './database/mongoClient'
 import { port } from './config/configEnv'
 
+import bodyParser from 'body-parser'
+
 const app: Express = express()
+app.use(bodyParser.json({ limit: '5mb' })) // TODO maybe this is not needed, when i send image
 
 app.use((req, res, next) => {
   // For example, a GET request to `/test` will print "GET /test"

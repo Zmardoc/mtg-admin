@@ -38,7 +38,6 @@ const constraints = {
 }
 
 const scanned = computed(() => {
-  console.log(scannerStore.scannedCards)
   return scannerStore.scannedCards.map((card) => card.frontFace.name).join(', ')
 })
 
@@ -94,13 +93,13 @@ async function takePhoto() {
 
     const imageBase64 = canvasRef.value.toDataURL('image/jpeg')
 
-    const convertedText = await mutateAsync(imageBase64)
-
-    if (!convertedText) {
-      console.error('Nelze získat text z obrázku.')
+    const scannedCard = await mutateAsync(imageBase64)
+    if (!scannedCard) {
+      console.error('Cant get card from image.')
       return
     }
-    scannerStore.addToScannedTexts(convertedText)
+
+    scannerStore.addToScannedCards(scannedCard)
   } catch (error) {
     alert(error)
   }
@@ -142,7 +141,7 @@ onUnmounted(() => {
 }
 
 .scanned-text {
-  z-index: 2002;
+  z-index: 2005;
   position: fixed;
   top: 8px;
   left: 8px;

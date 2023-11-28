@@ -4,6 +4,7 @@
       <q-btn color="primary" class="full-width" @click="scannerWindow = true"
         >Open Scanner</q-btn
       >
+      <ScannerResults />
       <template v-if="scannerWindow">
         <q-btn
           class="close-btn"
@@ -21,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import ScannerResults from '@/components/ScannerResults'
 import ScannerWindow from '@/components/ScannerWindow/ScannerWindow.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { ref } from 'vue'

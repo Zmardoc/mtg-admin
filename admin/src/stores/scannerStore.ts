@@ -5,11 +5,11 @@ import type { ApiCard } from '@/queries/useSearchQuery'
 const useScannerStore = defineStore('scanner', () => {
   const scannedCards = ref<ApiCard[]>([])
 
-  function addToScannedTexts(scannedText: ApiCard) {
-    scannedCards.value = [...new Set([...scannedCards.value, scannedText])]
+  function addToScannedCards(scannedCard: ApiCard) {
+    scannedCards.value = [...new Set([...scannedCards.value, scannedCard])]
   }
 
-  return { scannedCards, addToScannedTexts }
+  return { scannedCards, addToScannedCards }
 })
 
 export default useScannerStore

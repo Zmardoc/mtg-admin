@@ -4,7 +4,7 @@ type ErrorResponse = {
   code: string
   details: string
   type?: string | null
-  wranings?: string[] | null
+  warnings?: string[] | null
   stack?: unknown
 }
 

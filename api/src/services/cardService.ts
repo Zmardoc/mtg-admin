@@ -4,7 +4,7 @@ import { type Request, type Response } from 'express'
 import cardSearch, { type ApiCard } from '../api/scryfall/cardSearch'
 import { type Card, findCard, insertCard, updateCard } from '../database/cards'
 import { ErrorResponse } from '../api/types'
-import { setUnknownError } from '../errors'
+import { getUnknownError } from '../errors'
 
 type RequestQuery<T> = Request<
   Record<string, never>,
@@ -33,34 +33,33 @@ function getCard(name: string, inCollection: number, userId: string): Card {
   }
 }
 
-async function searchCards(req: RequestQuery<SearchQuery>, res: Response) {
+async function searchCards(searchQuery: string, userId: string | undefined) {
   // load all cards from scryfall
-  const response = await cardSearch(req.query.q)
+  const response = await cardSearch(searchQuery)
 
   if (isSuccessfullResponse(response)) {
     try {
       // find cards in database and join them to scryfall response
       const apiResponse = await Promise.all(
         response.map(async (card) => {
-          if (!req.user?.id) return card
+          if (!userId) return card
 
-          const foundCard = await findCard(card.frontFace.name, req.user.id)
+          const foundCard = await findCard(card.frontFace.name, userId)
           return {
             ...card,
             inCollection: foundCard?.inCollection ?? 0,
           }
         }),
       )
-
-      res.send(apiResponse ?? [])
+      return apiResponse
     } catch (error) {
-      setUnknownError(res, error)
+      return getUnknownError(error)
     }
   } else {
-    res.send(response)
+    return response
   }
 }
-
+// TODO dont send res and req to service
 async function upsertCard(req: Request, res: Response<Card>) {
   if (!req.user?.id) return // TODO nahovno, uz se to pridava v authenticateToken
 
