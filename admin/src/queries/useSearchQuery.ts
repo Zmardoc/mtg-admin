@@ -29,7 +29,7 @@ type ApiCard = {
 async function searchCards(cardTitle: string) {
   if (!cardTitle) return []
 
-  return (await mtgGet<ApiCard[]>(`/card/search?q=${cardTitle}`)) ?? []
+  return (await mtgGet<ApiCard[]>(`api/card/search?q=${cardTitle}`)) ?? []
 }
 
 function useSearchQuery() {
