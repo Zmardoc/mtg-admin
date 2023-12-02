@@ -6,7 +6,9 @@ const useScannerStore = defineStore('scanner', () => {
   const scannedCards = ref<ApiCard[]>([])
 
   function addToScannedCards(scannedCard: ApiCard) {
-    scannedCards.value = [...new Set([...scannedCards.value, scannedCard])]
+    if (!scannedCards.value.find((card) => card.id === scannedCard.id)) {
+      scannedCards.value = [...new Set([...scannedCards.value, scannedCard])]
+    }
   }
 
   return { scannedCards, addToScannedCards }

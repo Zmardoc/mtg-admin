@@ -1,3 +1,3 @@
 import ScannerWindow from './ScannerWindow.vue'
 
-export { ScannerWindow }
+export default ScannerWindow

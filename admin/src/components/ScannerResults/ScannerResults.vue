@@ -1,14 +1,10 @@
 <template>
-  <div class="text-white">Karty: {{ scanned }}</div>
+  <card-list :cards="scannerStore.scannedCards" />
 </template>
 
 <script setup lang="ts">
 import useScannerStore from '@/stores/scannerStore'
-import { computed } from 'vue'
+import CardList from '../CardList/CardList.vue'
 
 const scannerStore = useScannerStore()
-
-const scanned = computed(() => {
-  return scannerStore.scannedCards.map((card) => card.frontFace.name).join(', ')
-})
 </script>
