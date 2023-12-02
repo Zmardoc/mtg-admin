@@ -1,17 +1,7 @@
 <template>
   <div class="flex flex-center full-width">
     <template v-if="!isFetching">
-      <div
-        v-if="cards.length"
-        class="card-dashboard flex justify-center q-py-xs"
-      >
-        <image-card
-          v-for="card in cards"
-          :key="card.id"
-          :card="card"
-          class="q-ma-xs"
-        />
-      </div>
+      <card-list v-if="cards.length" :cards="cards" class="card-dashboard" />
       <dashboard-text v-else-if="query" text="CAN'T FIND ANY CARD" />
     </template>
     <dashboard-text v-else text="LOADING..." />
@@ -22,8 +12,8 @@
 import DashboardText from './DashboardText.vue'
 import { useCardSearch } from '@/components/InputSearch'
 import { computed } from 'vue'
-import { ImageCard } from '../ImageCard'
 import useSearchQuery from '@/queries/useSearchQuery'
+import CardList from '../CardList/CardList.vue'
 
 const { query } = useCardSearch()
 const { data, isFetching } = useSearchQuery()
