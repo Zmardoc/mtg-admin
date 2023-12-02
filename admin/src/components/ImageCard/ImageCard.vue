@@ -1,8 +1,8 @@
 <template>
   <div class="image-card-scene">
     <card-menu
-      @add="addCard(props.card.frontFace.name)"
-      @remove="deleteCard(props.card.frontFace.name)"
+      @add="addCardToCollection(props.card.frontFace.name)"
+      @remove="deleteCardFromCollection(props.card.frontFace.name)"
       @flip="flipCard"
       :showFlip="hasDualFace"
       :inCollection="props.card.inCollection"
@@ -53,14 +53,15 @@ import ImageCardSingle from './ImageCardSingle.vue'
 import CardMenu from './CardMenu.vue'
 import CardButton from './CardButton.vue'
 import type { ApiCard } from '@/queries/useSearchQuery'
-import useAddCardQuery from '@/queries/useAddCardQuery'
-import useDeleteCardQuery from '@/queries/useDeleteCardQuery'
+import useAddCard from './useAddCard'
+import useDeleteCard from './useDeleteCard'
 
 type Props = {
   card: ApiCard
 }
-const { mutate: addCard } = useAddCardQuery()
-const { mutate: deleteCard } = useDeleteCardQuery()
+
+const addCardToCollection = useAddCard()
+const deleteCardFromCollection = useDeleteCard()
 
 const props = defineProps<Props>()
 const flipped = ref(false)

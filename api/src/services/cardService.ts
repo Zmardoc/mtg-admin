@@ -60,6 +60,7 @@ async function searchCards(searchQuery: string, userId: string | undefined) {
   }
 }
 // TODO dont send res and req to service
+//TODO better name for this function
 async function upsertCard(req: Request, res: Response<Card>) {
   if (!req.user?.id) return // TODO nahovno, uz se to pridava v authenticateToken
 

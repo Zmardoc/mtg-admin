@@ -1,1 +1,0 @@
-import{i as c}from"./InputSearch.65894d96.js";function u(){const{notify:t}=c();function i(o){t({message:o,color:"positive",icon:"check",timeout:1e3})}function e(o){t({message:o,color:"negative",icon:"lock",timeout:1e3})}function n(o){t({message:o,color:"dark",timeout:2e3,textColor:"primary",classes:"mtg-font-bold"})}return{notifyWelcome:n,notifySuccess:i,notifyError:e}}export{u};

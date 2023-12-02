@@ -1,11 +1,14 @@
 <template>
   <main-layout hide-search>
     <q-page class="q-pa-sm">
-      <q-btn color="primary" class="full-width" @click="scannerWindow = true"
+      <q-btn
+        color="primary"
+        class="full-width"
+        @click="scannerWindowVisible = true"
         >Open Scanner</q-btn
       >
-      <ScannerResults />
-      <template v-if="scannerWindow">
+      <scanner-results />
+      <template v-if="scannerWindowVisible">
         <q-btn
           class="close-btn"
           color="primary"
@@ -13,9 +16,9 @@
           flat
           icon="arrow_back_ios"
           size="xl"
-          @click="scannerWindow = false"
+          @click="scannerWindowVisible = false"
         />
-        <ScannerWindow />
+        <scanner-window />
       </template>
     </q-page>
   </main-layout>
@@ -23,11 +26,11 @@
 
 <script setup lang="ts">
 import ScannerResults from '@/components/ScannerResults'
-import ScannerWindow from '@/components/ScannerWindow/ScannerWindow.vue'
+import ScannerWindow from '@/components/ScannerWindow'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { ref } from 'vue'
 
-const scannerWindow = ref(true)
+const scannerWindowVisible = ref(true)
 </script>
 
 <style lang="scss" scoped>
