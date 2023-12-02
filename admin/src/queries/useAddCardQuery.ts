@@ -1,10 +1,9 @@
 import { mtgPost } from '@/api/mtgApi'
 import useNotify from '@/composables/useNotify'
 import { useMutation } from '@tanstack/vue-query'
-import { type CollectionCard, useCardSearch } from '@/components/InputSearch'
+import type { CollectionCard } from '@/components/InputSearch'
 
-function useAddCardQuery() {
-  const { updateSearch } = useCardSearch()
+function useAddCardQuery(onAdd: (addedCard: CollectionCard) => void) {
   const { notifySuccess } = useNotify()
 
   async function postAddCard(name: string) {
@@ -13,7 +12,7 @@ function useAddCardQuery() {
     })
     if (collectionCard) {
       notifySuccess(`${name} was added to your collection`)
-      updateSearch(collectionCard)
+      onAdd(collectionCard)
     }
 
     return collectionCard
