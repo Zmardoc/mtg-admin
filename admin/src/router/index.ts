@@ -40,7 +40,7 @@ export default route(function (/* { store, ssrContext } */) {
     //TODO na be vracet v logincheck vzdy 200 jen navratova hodnota bude true false
     if (to.name !== 'login') {
       try {
-        await mtgGet('/authorization/login-check')
+        await mtgGet('/api/authorization/login-check')
         next()
       } catch (e) {
         next({
