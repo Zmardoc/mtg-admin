@@ -20,7 +20,7 @@ function useLoginQuery() {
 
   async function postLogin(user: User) {
     try {
-      const data = await mtgPost<ResponseToken>('/authorization/login', user)
+      const data = await mtgPost<ResponseToken>('/api/authorization/login', user)
       if (data?.token) {
         Cookies.set(COOKIE_TOKEN_KEY, data.token, { expires: 7 })
 

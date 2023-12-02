@@ -8,7 +8,7 @@ function useDeleteCardQuery() {
   const { notifySuccess } = useNotify()
 
   async function postRemoveCard(name: string) {
-    const collectionCard = await mtgDelete<CollectionCard>(`/card?name=${name}`)
+    const collectionCard = await mtgDelete<CollectionCard>(`/api/card?name=${name}`)
     updateSearch(collectionCard)
     notifySuccess(`${name} was removed from your collection`)
     return collectionCard

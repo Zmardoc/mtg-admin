@@ -26,7 +26,7 @@ app.use(
 
 app.use(express.json())
 
-app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 defineRoutes(app)
 
