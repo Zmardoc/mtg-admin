@@ -5,6 +5,8 @@
     <q-btn
       @click="takePhoto"
       round
+      :disable="isLoading"
+      :loading="isLoading"
       size="xl"
       color="primary"
       icon="camera"
@@ -23,13 +25,14 @@ import useOcrQuery from '@/queries/useOcrQuery'
 import useScannerStore from '@/stores/scannerStore'
 
 let videoStream: MediaStream | null = null
+const beepAudio = new Audio(beep)
 
 const videoRef = ref<HTMLVideoElement | null>(null)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 const isMobile = /(android|iphone|ipad)/i.test(navigator.userAgent) // opravit nefunguje desktop
 
-const { mutateAsync } = useOcrQuery()
+const { mutateAsync, isLoading } = useOcrQuery()
 const scannerStore = useScannerStore()
 
 const constraints = {
@@ -58,7 +61,7 @@ function startCamera() {
 function setupCanvas() {
   if (canvasRef.value && videoRef.value) {
     canvasRef.value.width = videoRef.value.videoWidth
-    canvasRef.value.height = videoRef.value.videoWidth
+    canvasRef.value.height = videoRef.value.videoHeight
 
     const ctx = canvasRef.value.getContext('2d')
     if (ctx) {
@@ -88,12 +91,10 @@ async function takePhoto() {
       canvasRef.value.height
     )
 
-    const audio = new Audio(beep)
-    audio.play()
-
     const imageBase64 = canvasRef.value.toDataURL('image/jpeg')
 
     const scannedCard = await mutateAsync(imageBase64)
+    beepAudio.play()
     if (!scannedCard) {
       console.error('Cant get card from image.')
       return
