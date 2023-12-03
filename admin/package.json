@@ -11,6 +11,10 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
+    "deletePublic": "rmdir /s /q \"../api/public\"",
+    "copydist": "xcopy \"dist/spa\" \"../api/public\" /s /i /e",
+    "buildPublic": "npm run build && npm run deletePublic && npm run copydist",
+    "publish": "npm run buildPublic && git add . && git commit -m \"publish\" && git push",
     "check": "vue-tsc --noEmit"
   },
   "dependencies": {
