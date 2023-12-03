@@ -14,7 +14,7 @@
     "deletePublic": "rmdir /s /q \"../api/public\"",
     "copydist": "xcopy \"dist/spa\" \"../api/public\" /s /i /e",
     "buildPublic": "npm run build && npm run deletePublic && npm run copydist",
-    "publish": "npm run buildPublic && git add . && git commit -m \"publish\" && git push",
+    "publish": "git add . && git commit -m \"publish\"",
     "check": "vue-tsc --noEmit"
   },
   "dependencies": {
