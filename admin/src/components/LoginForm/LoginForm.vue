@@ -19,12 +19,12 @@
           :rules="[(val) => !!val || 'Password is required']"
           type="password"
         />
-        <div class="flex row reverse">
+        <div class="flex row justify-between items-center q-mt-md">
+          <div class="text-caption">v{{ version }}</div>
           <q-btn
             type="submit"
             color="primary"
             label="Login"
-            class="q-mt-md"
             :loading="isLoading"
           />
         </div>
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { version } from '../../../package.json'
 
 import useLoginQuery, { User } from '@/queries/useLoginQuery'
 
