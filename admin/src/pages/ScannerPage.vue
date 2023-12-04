@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+//TODO button do scanner window
 import ScannerResults from '@/components/ScannerResults'
 import ScannerWindow from '@/components/ScannerWindow'
 import MainLayout from '@/layouts/MainLayout.vue'
