@@ -1,10 +1,3 @@
-type ScryfallCardSearchResponse = {
-  object: string
-  total_cards: number
-  has_more: boolean
-  data: ScryfallCard[]
-}
-
 type ScryfallCard = {
   object: string
   id: string
@@ -78,8 +71,8 @@ type ScryfallCard = {
   power?: string
   toughness?: string
   frame_effects?: string[]
-  imageUrl?: string | null // added by me
-  oracleText?: string | null // added by me
+  imageUrl: string | null // added by me
+  oracleText: string | null // added by me
 }
 
 type CardFace = {
@@ -168,4 +161,4 @@ type Preview = {
   previewed_at: string
 }
 
-export type { ScryfallCardSearchResponse, ScryfallCard, CardPrices }
+export type { ScryfallCard }

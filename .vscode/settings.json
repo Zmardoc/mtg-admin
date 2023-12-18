@@ -3,14 +3,44 @@
   "editor.guides.bracketPairs": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": [
-    "source.fixAll.eslint"
-  ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "vue"
-  ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "actionButtons": {
+    "defaultColor": "white", // Can also use string color names.
+    // "loadNpmCommands": false, // Disables automatic generation of actions for npm commands.
+    "reloadButton": "♻️", // Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
+    "commands": [
+      {
+        "cwd": "${workspaceFolder}/admin", // Terminal initial folder ${workspaceFolder} and os user home as defaults
+        "name": "▶️ Run FE",
+        "singleInstance": true,
+        "command": "npm run dev" // This is executed in the terminal.
+      },
+      {
+        "cwd": "${workspaceFolder}/admin", // Terminal initial folder ${workspaceFolder} and os user home as defaults
+        "name": "👽 TS check FE",
+        "singleInstance": true,
+        "command": "npm run check" // This is executed in the terminal.
+      },
+      {
+        "cwd": "${workspaceFolder}/api", // Terminal initial folder ${workspaceFolder} and os user home as defaults
+        "name": "▶️ Run BE",
+        "singleInstance": true,
+        "command": "npm run dev" // This is executed in the terminal.
+      },
+      {
+        "cwd": "${workspaceFolder}/api", // Terminal initial folder ${workspaceFolder} and os user home as defaults
+        "name": "👽 TS check BE",
+        "singleInstance": true,
+        "command": "npm run check:ts" // This is executed in the terminal.
+      }
+      /*  {
+        "name": "🪟 Split editor",
+        "color": "orange",
+        "useVsCodeApi": true,
+        "command": "workbench.action.splitEditor"
+      } */
+    ]
+  }
 }

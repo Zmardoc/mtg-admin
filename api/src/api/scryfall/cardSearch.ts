@@ -4,16 +4,10 @@ import type { AxiosResponse } from 'axios'
 import type { ScryfallCard, ScryfallCardSearchResponse, CardPrices } from './sryfallSearchTypes'
 import type { ErrorResponse } from '../types'
 
-type CardFace = {
-  name: string
-  imageUrl: string | null
-  oracleText: string | null
-}
-
 type ApiCard = {
   id: string
-  frontFace: CardFace
-  backFace: CardFace | null
+  frontFace: ScryfallCard
+  backFace: ScryfallCard | null
   inCollection: number
   prices: CardPrices
 }
@@ -22,9 +16,10 @@ type ScryfallResponse = ScryfallCardSearchResponse | ErrorResponse
 type ScryfallAxiosResponse = AxiosResponse<ScryfallResponse, unknown>
 type ScryfallSuccessAxiosResponse = AxiosResponse<ScryfallCardSearchResponse, unknown>
 
-function getFrontFace(card: ScryfallCard): CardFace {
+function getFrontFace(card: ScryfallCard): ScryfallCard {
   if (card.card_faces && !card.image_uris) {
     return {
+      ...card,
       name: card.card_faces[0].name,
       imageUrl: card.card_faces[0].image_uris?.normal ?? null,
       oracleText: card.card_faces[0].oracle_text ?? null,
@@ -32,16 +27,18 @@ function getFrontFace(card: ScryfallCard): CardFace {
   }
 
   return {
+    ...card,
     name: card.name,
     imageUrl: card.image_uris?.normal ?? null,
     oracleText: card.oracle_text ?? null,
   }
 }
 
-function getBackFace(card: ScryfallCard): CardFace | null {
+function getBackFace(card: ScryfallCard): ScryfallCard | null {
   if (!(card.card_faces && !card.image_uris)) return null
 
   return {
+    ...card,
     name: card.card_faces[1].name,
     imageUrl: card.card_faces[1].image_uris?.normal ?? null,
     oracleText: card.card_faces[1].oracle_text ?? null,

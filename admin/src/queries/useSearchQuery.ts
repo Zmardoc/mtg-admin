@@ -2,12 +2,7 @@ import queryKeys from './queryKeys'
 import { useQuery } from '@tanstack/vue-query'
 import { mtgGet } from '@/api/mtgApi'
 import { useCardSearch } from '@/components/InputSearch'
-
-type CardFace = {
-  name: string
-  imageUrl: string | null
-  oracleText: string | null
-}
+import { ScryfallCard } from './sryfallSearchTypes'
 
 type CardPrices = {
   usd: string
@@ -20,8 +15,8 @@ type CardPrices = {
 
 type ApiCard = {
   id: string
-  frontFace: CardFace
-  backFace: CardFace | null
+  frontFace: ScryfallCard
+  backFace: ScryfallCard | null
   inCollection: number
   prices: CardPrices
 }
@@ -41,4 +36,4 @@ function useSearchQuery() {
 }
 
 export default useSearchQuery
-export type { ApiCard, CardFace, CardPrices }
+export type { ApiCard, CardPrices }
