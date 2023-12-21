@@ -3,8 +3,8 @@ import { type Request, type Response, Router } from 'express'
 import { query } from 'express-validator'
 
 import authenticateToken from '../authenticateToken'
-import type { Card } from '../database/cards'
 import { deleteCard, searchCards, upsertCard } from '../services/cardService'
+import { ApiCard } from '../api/scryfall/cardSearch'
 
 const router = Router()
 
@@ -39,7 +39,7 @@ router.get(
   },
 )
 
-router.post('/upsert', authenticateToken, (req: Request, res: Response<Card>) => {
+router.post('/upsert', authenticateToken, (req: Request, res: Response<ApiCard>) => {
   /*#swagger.tags = ['Cards']
     #swagger.parameters['card'] = {
       in: 'body',

@@ -10,6 +10,7 @@ type ApiCard = {
   backFace: ScryfallCard | null
   inCollection: number
   prices: CardPrices
+  userId?: string // TODO nevimnevim
 }
 
 type ScryfallResponse = ScryfallCardSearchResponse | ErrorResponse

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { ApiCard } from '@/queries/useSearchQuery'
-import { CollectionCard } from '@/components/InputSearch'
 
 const useScannerStore = defineStore('scanner', () => {
   const scannedCards = ref<ApiCard[]>([])
@@ -12,12 +11,12 @@ const useScannerStore = defineStore('scanner', () => {
     }
   }
 
-  function updateScannedCards(scannedCard: CollectionCard) {
+  function updateScannedCards(scannedCard: ApiCard) {
     scannedCards.value = scannedCards.value.map<ApiCard>((card) => {
       return {
         ...card,
         inCollection:
-          card.frontFace.name === scannedCard.name
+          card.frontFace.name === scannedCard.frontFace.name
             ? scannedCard.inCollection
             : card.inCollection,
       }

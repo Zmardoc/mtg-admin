@@ -1,7 +1,7 @@
 <template>
   <div class="image-card-scene">
     <card-menu
-      @add="addCardToCollection(props.card.frontFace.name)"
+      @add="addCardToCollection(props.card)"
       @remove="deleteCardFromCollection(props.card.frontFace.name)"
       @flip="flipCard"
       :showFlip="hasDualFace"

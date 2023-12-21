@@ -2,7 +2,7 @@
 import { type Request, type Response } from 'express'
 
 import cardSearch, { type ApiCard } from '../api/scryfall/cardSearch'
-import { type Card, findCard, insertCard, updateCard } from '../database/cards'
+import { findCard, insertCard, updateCard } from '../database/cards'
 import { ErrorResponse } from '../api/types'
 import { getUnknownError } from '../errors'
 
@@ -23,14 +23,6 @@ type SearchQuery = {
 
 function isSuccessfullResponse(response: ErrorResponse | ApiCard[]): response is ApiCard[] {
   return response instanceof Array
-}
-
-function getCard(name: string, inCollection: number, userId: string): Card {
-  return {
-    name,
-    inCollection,
-    userId,
-  }
 }
 
 async function searchCards(searchQuery: string, userId: string | undefined) {
@@ -61,14 +53,14 @@ async function searchCards(searchQuery: string, userId: string | undefined) {
 }
 // TODO dont send res and req to service
 //TODO better name for this function
-async function upsertCard(req: Request, res: Response<Card>) {
+async function upsertCard(req: Request, res: Response<ApiCard>) {
   if (!req.user?.id) return // TODO nahovno, uz se to pridava v authenticateToken
 
-  const dbCard = await findCard(req.body.name, req.user.id)
+  const dbCard = await findCard(req.body.card.frontFace.name, req.user.id)
 
-  const card: Card = {
-    name: req.body.name,
-    inCollection: (dbCard?.inCollection ?? 0) + 1,
+  const card = {
+    ...req.body.card,
+    inCollection: dbCard ? dbCard.inCollection + 1 : 1,
     userId: req.user.id,
   }
 
@@ -83,11 +75,11 @@ async function deleteCard(req: RequestQuery<DeleteQuery>, res: Response) {
   const dbCard = await findCard(req.query.name, req.user.id)
   if (!dbCard) return
 
-  const card = getCard(
-    req.query.name,
-    dbCard.inCollection ? dbCard.inCollection - 1 : 0,
-    req.user.id,
-  )
+  const card = {
+    ...dbCard,
+    inCollection: dbCard.inCollection - 1,
+    userId: req.user.id,
+  }
   updateCard(card)
   res.send(card)
 }
