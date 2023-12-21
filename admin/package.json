@@ -1,6 +1,6 @@
 {
   "name": "mtg-admin",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Admin web for commander decks and card collection",
   "productName": "Mtg collector",
   "author": "Martin Mol mol1@seznam.cz",
