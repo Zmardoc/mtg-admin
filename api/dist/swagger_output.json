@@ -11,7 +11,7 @@
         "http"
     ],
     "paths": {
-        "/authorization/login": {
+        "/api/authorization/login": {
             "post": {
                 "description": "",
                 "parameters": [
@@ -38,7 +38,7 @@
                 }
             }
         },
-        "/authorization/login-check": {
+        "/api/authorization/login-check": {
             "get": {
                 "description": "",
                 "parameters": [],
@@ -49,7 +49,7 @@
                 }
             }
         },
-        "/authorization/register": {
+        "/api/authorization/register": {
             "post": {
                 "description": "",
                 "parameters": [
@@ -76,7 +76,7 @@
                 }
             }
         },
-        "/card/search": {
+        "/api/card/search": {
             "get": {
                 "tags": [
                     "Cards search"
@@ -107,7 +107,7 @@
                 }
             }
         },
-        "/card/upsert": {
+        "/api/card/upsert": {
             "post": {
                 "tags": [
                     "Cards"
@@ -138,7 +138,7 @@
                 }
             }
         },
-        "/card/": {
+        "/api/card/": {
             "delete": {
                 "tags": [
                     "Cards remove from collection"
@@ -160,6 +160,35 @@
                             ]
                         },
                         "in": "query"
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/ocr/scan": {
+            "post": {
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "imageBase64": {
+                                    "example": "any"
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
