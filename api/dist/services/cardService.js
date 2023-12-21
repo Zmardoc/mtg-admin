@@ -10,13 +10,6 @@ const errors_1 = require("../errors");
 function isSuccessfullResponse(response) {
     return response instanceof Array;
 }
-function getCard(name, inCollection, userId) {
-    return {
-        name,
-        inCollection,
-        userId,
-    };
-}
 async function searchCards(searchQuery, userId) {
     // load all cards from scryfall
     const response = await (0, cardSearch_1.default)(searchQuery);
@@ -42,16 +35,13 @@ async function searchCards(searchQuery, userId) {
 }
 exports.searchCards = searchCards;
 // TODO dont send res and req to service
+//TODO better name for this function
 async function upsertCard(req, res) {
-    var _a, _b;
+    var _a;
     if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.id))
         return; // TODO nahovno, uz se to pridava v authenticateToken
-    const dbCard = await (0, cards_1.findCard)(req.body.name, req.user.id);
-    const card = {
-        name: req.body.name,
-        inCollection: ((_b = dbCard === null || dbCard === void 0 ? void 0 : dbCard.inCollection) !== null && _b !== void 0 ? _b : 0) + 1,
-        userId: req.user.id,
-    };
+    const dbCard = await (0, cards_1.findCard)(req.body.card.frontFace.name, req.user.id);
+    const card = Object.assign(Object.assign({}, req.body.card), { inCollection: dbCard ? dbCard.inCollection + 1 : 1, userId: req.user.id });
     dbCard ? (0, cards_1.updateCard)(card) : (0, cards_1.insertCard)(card);
     res.send(card);
 }
@@ -63,7 +53,7 @@ async function deleteCard(req, res) {
     const dbCard = await (0, cards_1.findCard)(req.query.name, req.user.id);
     if (!dbCard)
         return;
-    const card = getCard(req.query.name, dbCard.inCollection ? dbCard.inCollection - 1 : 0, req.user.id);
+    const card = Object.assign(Object.assign({}, dbCard), { inCollection: dbCard.inCollection - 1, userId: req.user.id });
     (0, cards_1.updateCard)(card);
     res.send(card);
 }

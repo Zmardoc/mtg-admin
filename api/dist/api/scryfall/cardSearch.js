@@ -7,27 +7,15 @@ const sryfallBase_1 = __importDefault(require("./sryfallBase"));
 function getFrontFace(card) {
     var _a, _b, _c, _d, _e, _f;
     if (card.card_faces && !card.image_uris) {
-        return {
-            name: card.card_faces[0].name,
-            imageUrl: (_b = (_a = card.card_faces[0].image_uris) === null || _a === void 0 ? void 0 : _a.normal) !== null && _b !== void 0 ? _b : null,
-            oracleText: (_c = card.card_faces[0].oracle_text) !== null && _c !== void 0 ? _c : null,
-        };
+        return Object.assign(Object.assign({}, card), { name: card.card_faces[0].name, imageUrl: (_b = (_a = card.card_faces[0].image_uris) === null || _a === void 0 ? void 0 : _a.normal) !== null && _b !== void 0 ? _b : null, oracleText: (_c = card.card_faces[0].oracle_text) !== null && _c !== void 0 ? _c : null });
     }
-    return {
-        name: card.name,
-        imageUrl: (_e = (_d = card.image_uris) === null || _d === void 0 ? void 0 : _d.normal) !== null && _e !== void 0 ? _e : null,
-        oracleText: (_f = card.oracle_text) !== null && _f !== void 0 ? _f : null,
-    };
+    return Object.assign(Object.assign({}, card), { name: card.name, imageUrl: (_e = (_d = card.image_uris) === null || _d === void 0 ? void 0 : _d.normal) !== null && _e !== void 0 ? _e : null, oracleText: (_f = card.oracle_text) !== null && _f !== void 0 ? _f : null });
 }
 function getBackFace(card) {
     var _a, _b, _c;
     if (!(card.card_faces && !card.image_uris))
         return null;
-    return {
-        name: card.card_faces[1].name,
-        imageUrl: (_b = (_a = card.card_faces[1].image_uris) === null || _a === void 0 ? void 0 : _a.normal) !== null && _b !== void 0 ? _b : null,
-        oracleText: (_c = card.card_faces[1].oracle_text) !== null && _c !== void 0 ? _c : null,
-    };
+    return Object.assign(Object.assign({}, card), { name: card.card_faces[1].name, imageUrl: (_b = (_a = card.card_faces[1].image_uris) === null || _a === void 0 ? void 0 : _a.normal) !== null && _b !== void 0 ? _b : null, oracleText: (_c = card.card_faces[1].oracle_text) !== null && _c !== void 0 ? _c : null });
 }
 function convertToApi(cards) {
     return cards.map((card) => ({

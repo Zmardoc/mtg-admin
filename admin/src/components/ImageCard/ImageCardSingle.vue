@@ -19,13 +19,14 @@
 </template>
 
 <script setup lang="ts">
-import type { CardFace, CardPrices } from '@/queries/useSearchQuery'
+import type { CardPrices } from '@/queries/useSearchQuery'
 import CollectionNumber from './CollectionNumber.vue'
 import EmptyCard from './EmptyCard.vue'
 import CardPrice from './CardPrice.vue'
+import { ScryfallCard } from '@/queries/sryfallSearchTypes'
 //TODO posilat jen cardFace
 type Props = {
-  cardFace: CardFace
+  cardFace: ScryfallCard
   inCollection: number
   prices: CardPrices
 }

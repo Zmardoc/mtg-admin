@@ -1,28 +1,22 @@
+import { ApiCard } from '../api/scryfall/cardSearch'
 import { getCollection } from './mongoClient'
 
 const CARDS_COLLECTION = 'cards'
 
-type Card = {
-  name: string
-  inCollection: number
-  userId: string
-}
-
-const cardCollection = getCollection<Card>(CARDS_COLLECTION)
+const cardCollection = getCollection<ApiCard>(CARDS_COLLECTION)
 
 async function findCard(name: string, userId: string) {
-  return await cardCollection.findOne({ name, userId })
+  return await cardCollection.findOne({ 'frontFace.name': name, userId })
 }
 
-async function insertCard(card: Card) {
+async function insertCard(card: ApiCard) {
   await cardCollection.insertOne(card)
   return true
 }
 
-async function updateCard(card: Card) {
-  await cardCollection.updateOne({ name: card.name }, { $set: card })
+async function updateCard(card: ApiCard) {
+  await cardCollection.updateOne({ 'frontFace.name': card.frontFace.name }, { $set: card })
   return true
 }
 
 export { insertCard, updateCard, findCard }
-export type { Card }

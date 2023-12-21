@@ -1,19 +1,17 @@
 import { mtgDelete } from '@/api/mtgApi'
-import { type CollectionCard } from '@/components/InputSearch'
 import useNotify from '@/composables/useNotify'
 import { useMutation } from '@tanstack/vue-query'
+import { ApiCard } from './useSearchQuery'
 
-function useDeleteCardQuery(onDelete: (deletedCard: CollectionCard) => void) {
+function useDeleteCardQuery(onDelete: (deletedCard: ApiCard) => void) {
   const { notifySuccess } = useNotify()
 
   async function postRemoveCard(name: string) {
-    const collectionCard = await mtgDelete<CollectionCard>(
-      `/api/card?name=${name}`
-    )
-    onDelete(collectionCard)
+    const deletedCard = await mtgDelete<ApiCard>(`/api/card?name=${name}`)
+    onDelete(deletedCard)
 
     notifySuccess(`${name} was removed from your collection`)
-    return collectionCard
+    return deletedCard
   }
 
   return useMutation({

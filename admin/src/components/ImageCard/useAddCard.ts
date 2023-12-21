@@ -1,12 +1,13 @@
 import useAddCardQuery from '@/queries/useAddCardQuery'
-import { CollectionCard, useCardSearch } from '../InputSearch'
+import { useCardSearch } from '../InputSearch'
 import useScannerStore from '@/stores/scannerStore'
+import type { ApiCard } from '@/queries/useSearchQuery'
 
 function useAddCard() {
   const { updateSearch } = useCardSearch()
   const { updateScannedCards } = useScannerStore()
 
-  function updateCardLists(addedCard: CollectionCard) {
+  function updateCardLists(addedCard: ApiCard) {
     updateSearch(addedCard) //vue-query
     updateScannedCards(addedCard) //store
   }
