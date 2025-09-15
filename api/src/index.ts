@@ -34,4 +34,5 @@ openConnection()
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}/api`)
+  console.info(`⚡️[swagger]: Swagger is running at http://localhost:${port}/swagger`)
 })
