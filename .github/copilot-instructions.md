@@ -1,0 +1,6 @@
+- write in Czech
+- comments in English
+- use Quasar framework in admin folder
+- this is project, has 2 folders: admin and api
+- admin uses Quasar framework, api is just nodejs express server
+- use yarn if needed
